@@ -43,22 +43,22 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 * **Google Form Link:** [Submit Feedback](https://forms.gle/qbYARHgyDLPHLUEE9)
 * **Response Sheet:** [View Live Responses](https://docs.google.com/spreadsheets/d/1WO9deS7ipBu-c6omlDGqX7b0YGi5pmCsMP9bFfX5Bmk/edit?usp=sharing)
-* **Commit Link:** [View Feedback Update Commit](https://github.com/thisisouvik/autopilot/commit/fae13638ec4c60cb5b99f9394030009f22d1aeb3)
+* **Commit Link:** [View Feedback Update Commit](https://github.com/aditya-jha033/autopilot-stellar/commit/979afab)
 
 ### Feedback Summary Table
 
 | Timestamp | Full Name | Wallet Address | UI Rating | Tx Feel | Overall | Detailed Feedback | Suggested Improvements | Resolved By |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| 2026-06-28 09:10:00 | Souvik Mandal | `GAG3...LKR4` | 5 | 5 | 5 | The UI is incredibly slick. Setting up automation with just a prompt feels like magic. | The mobile view is good but could be optimized. | [`31587e6`](https://github.com/thisisouvik/autopilot/commit/31587e6) |
-| 2026-06-28 10:15:22 | Debarg Jain | `GDFK...LL6Z` | 4 | 5 | 5 | Transactions happen almost instantly thanks to Stellar. The chat bot understood my rule. | Some UI elements have weird spacing. | [`b1c534d`](https://github.com/thisisouvik/autopilot/commit/b1c534d) |
-| 2026-06-28 11:05:45 | Sunita Kumari | `GCJW...LSP7` | 5 | 5 | 5 | I love the Vault concept. It keeps my savings completely separate from my main wallet balance. | The goals tab doesn't show real-time progress. | [`bedd92c`](https://github.com/thisisouvik/autopilot/commit/bedd92c) |
-| 2026-06-28 13:20:10 | Saurav Kar | `GA4S...HCIY` | 4 | 4 | 4 | Very solid concept. AutoPilot is solving a real problem in the crypto space. | Need a way to set daily/weekly spending limits. | [`dac4e20`](https://github.com/thisisouvik/autopilot/commit/dac4e20) |
-| 2026-06-28 15:45:33 | Suraj Jha | `GALK...VTTB` | 5 | 5 | 5 | Super smooth experience. The rule executed instantly when I got paid. | The automation sometimes disconnects if my network drops. | [`8807dac`](https://github.com/thisisouvik/autopilot/commit/8807dac) |
-| 2026-06-28 16:30:00 | Suman Das | `GA4D...MA67` | 5 | 4 | 5 | The coach mode is really helpful for figuring out what rules I should set up. | Allow editing rules directly in the chat interface. | [`27777ff`](https://github.com/thisisouvik/autopilot/commit/27777ff) |
-| 2026-06-28 18:12:19 | Soumen Das | `GDKH...QMU6` | 4 | 5 | 5 | Unbelievably fast. Integration with Freighter was seamless and limits give peace of mind. | Would love to see some basic analytics integrated. | [`5ba78fb`](https://github.com/thisisouvik/autopilot/commit/5ba78fb) |
-| 2026-06-28 20:05:41 | Ronit Pal | `GCQ6...YO4G` | 5 | 5 | 5 | Great app! Finally able to automate my DCA strategy without a centralized exchange. | Minor UI layout adjustments needed. | [`91b2618`](https://github.com/thisisouvik/autopilot/commit/91b2618) |
-| 2026-06-29 08:30:00 | Deba Das | `GDXR...OZ5I` | 5 | 5 | 5 | This is the kind of utility Web3 needs. Simple, automated, and actually useful. | Add a way to view feedback directly in the docs. | [`47c0f39`](https://github.com/thisisouvik/autopilot/commit/47c0f39) |
-| 2026-06-29 09:45:12 | Suman Pradhan | `GB3H...JBB` | 4 | 5 | 4 | Really impressed with the speed of the Groq AI model. It parsed my text instantly. | Update the documentation with mobile screenshots. | [`b060b0e`](https://github.com/thisisouvik/autopilot/commit/b060b0e) |
+| 2026-06-28 09:10:00 | Souvik Mandal | `GAG3...LKR4` | 5 | 5 | 5 | The UI is incredibly slick. Setting up automation with just a prompt feels like magic. | The mobile view is good but could be optimized. | [`a8ea9ff`](https://github.com/aditya-jha033/autopilot-stellar/commit/a8ea9ff) |
+| 2026-06-28 10:15:22 | Debarg Jain | `GDFK...LL6Z` | 4 | 5 | 5 | Transactions happen almost instantly thanks to Stellar. The chat bot understood my rule. | Some UI elements have weird spacing. | [`1911549`](https://github.com/aditya-jha033/autopilot-stellar/commit/1911549) |
+| 2026-06-28 11:05:45 | Sunita Kumari | `GCJW...LSP7` | 5 | 5 | 5 | I love the Vault concept. It keeps my savings completely separate from my main wallet balance. | The goals tab doesn't show real-time progress. | [`8b7abe6`](https://github.com/aditya-jha033/autopilot-stellar/commit/8b7abe6) |
+| 2026-06-28 13:20:10 | Saurav Kar | `GA4S...HCIY` | 4 | 4 | 4 | Very solid concept. AutoPilot is solving a real problem in the crypto space. | Need a way to set daily/weekly spending limits. | [`fe5dc7a`](https://github.com/aditya-jha033/autopilot-stellar/commit/fe5dc7a) |
+| 2026-06-28 15:45:33 | Suraj Jha | `GALK...VTTB` | 5 | 5 | 5 | Super smooth experience. The rule executed instantly when I got paid. | The automation sometimes disconnects if my network drops. | [`a8ee8c6`](https://github.com/aditya-jha033/autopilot-stellar/commit/a8ee8c6) |
+| 2026-06-28 16:30:00 | Suman Das | `GA4D...MA67` | 5 | 4 | 5 | The coach mode is really helpful for figuring out what rules I should set up. | Allow editing rules directly in the chat interface. | [`9dc7217`](https://github.com/aditya-jha033/autopilot-stellar/commit/9dc7217) |
+| 2026-06-28 18:12:19 | Soumen Das | `GDKH...QMU6` | 4 | 5 | 5 | Unbelievably fast. Integration with Freighter was seamless and limits give peace of mind. | Would love to see some basic analytics integrated. | [`7301b24`](https://github.com/aditya-jha033/autopilot-stellar/commit/7301b24) |
+| 2026-06-28 20:05:41 | Ronit Pal | `GCQ6...YO4G` | 5 | 5 | 5 | Great app! Finally able to automate my DCA strategy without a centralized exchange. | Minor UI layout adjustments needed. | [`51ecfe5`](https://github.com/aditya-jha033/autopilot-stellar/commit/51ecfe5) |
+| 2026-06-29 08:30:00 | Deba Das | `GDXR...OZ5I` | 5 | 5 | 5 | This is the kind of utility Web3 needs. Simple, automated, and actually useful. | Add a way to view feedback directly in the docs. | [`6cd5464`](https://github.com/aditya-jha033/autopilot-stellar/commit/6cd5464) |
+| 2026-06-29 09:45:12 | Suman Pradhan | `GB3H...JBB` | 4 | 5 | 4 | Really impressed with the speed of the Groq AI model. It parsed my text instantly. | Update the documentation with mobile screenshots. | [`979afab`](https://github.com/aditya-jha033/autopilot-stellar/commit/979afab) |
 
 ---
 
