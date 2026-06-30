@@ -1,0 +1,29 @@
+# ─────────────────────────────────────────────────────────────
+# frontend/.gitignore — Next.js specific ignores
+# ─────────────────────────────────────────────────────────────
+
+*node_modules
+# ── Next.js build output ─────────────────────────────────────
+.next/
+out/
+
+# ── Next.js cache ────────────────────────────────────────────
+.swc/
+
+# ── Auto-generated Next.js types ─────────────────────────────
+next-env.d.ts
+
+# ── Prisma ───────────────────────────────────────────────────
+# Generated prisma client (re-generated on deploy)
+prisma/generated/
+
+# ── TypeScript incremental build cache ───────────────────────
+*.tsbuildinfo
+
+# ── Vercel deployment ────────────────────────────────────────
+.vercel
+
+# ── Environment Variables ────────────────────────────────────
+.env
+.env.*
+!.env.example
