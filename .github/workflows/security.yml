@@ -1,0 +1,34 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    # Run automatically every Sunday at midnight to catch newly discovered vulnerabilities
+    - cron: '0 0 * * 0'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    name: NPM Security Audit
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Audit Backend Dependencies
+      working-directory: ./backend
+      # Fails the build if any 'high' or 'critical' vulnerabilities are found
+      run: npm audit --audit-level=high
+
+    - name: Audit Frontend Dependencies
+      working-directory: ./frontend
+      # Fails the build if any 'high' or 'critical' vulnerabilities are found
+      run: npm audit --audit-level=high
