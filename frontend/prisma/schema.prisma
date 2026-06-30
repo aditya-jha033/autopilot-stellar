@@ -1,0 +1,48 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                    String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  publicKey             String                 @unique
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  rules                 Rule[]
+  automatedTransactions AutomatedTransaction[]
+}
+
+model Rule {
+  id                    String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId                String                 @db.Uuid
+  trigger               String
+  action                String
+  amount                Float
+  isPercentage          Boolean                @default(false)
+  limits                Json?
+  status                String                 @default("active")
+  memo                  String?
+  description           String?
+  createdAt             DateTime               @default(now())
+  updatedAt             DateTime               @updatedAt
+  user                  User                   @relation(fields: [userId], references: [id])
+  automatedTransactions AutomatedTransaction[]
+}
+
+model AutomatedTransaction {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId    String   @db.Uuid
+  ruleId    String?  @db.Uuid
+  amount    Float
+  type      String
+  memo      String?
+  txHash    String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  rule      Rule?    @relation(fields: [ruleId], references: [id])
+}
