@@ -1,0 +1,70 @@
+# ─────────────────────────────────────────────────────────────
+# render.yaml — AutoPilot Backend
+# Deploy to Render.com (free tier)
+# https://render.com/docs/blueprint-spec
+# ─────────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: autopilot-backend
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    plan: free
+
+    # Health check — Render will restart the service if this fails
+    healthCheckPath: /health
+
+    # Auto-deploy from main branch
+    branch: main
+    autoDeploy: true
+
+    # Environment variables
+    # Set these in Render Dashboard → Environment tab
+    # DO NOT put real secrets here — use Render's secret env vars
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      - key: PORT
+        value: 3001
+
+      - key: STELLAR_NETWORK
+        value: testnet
+
+      - key: HORIZON_URL
+        value: https://horizon-testnet.stellar.org
+
+      # ── Set these in Render Dashboard as Secret env vars ──
+      - key: DATABASE_URL
+        sync: false   # Render will prompt you to set this
+
+      - key: JWT_SECRET
+        sync: false
+
+      - key: GROQ_API_KEY
+        sync: false
+
+      - key: AUTOPILOT_PUBLIC_KEY
+        sync: false
+
+      - key: AUTOPILOT_SECRET_KEY
+        sync: false
+
+      - key: VAULT_ENCRYPTION_KEY
+        sync: false
+
+      - key: UPSTASH_REDIS_REST_URL
+        sync: false
+
+      - key: UPSTASH_REDIS_REST_TOKEN
+        sync: false
+
+      - key: REDIS_URL
+        sync: false
+
+      - key: ENGINE_SECRET
+        sync: false
+
+      - key: FRONTEND_URL
+        sync: false   # Set to your Vercel frontend URL e.g. https://autopilot.vercel.app

@@ -1,0 +1,17 @@
+# ─────────────────────────────────────────────────────────────
+# backend/.dockerignore
+# ─────────────────────────────────────────────────────────────
+
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.log
+.DS_Store
+coverage/
+tmp/
+.git/
+.gitignore
+README.md
+src/scripts/
