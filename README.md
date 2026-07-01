@@ -218,12 +218,13 @@ sequenceDiagram
 
 ## 📜 Blockchain Deployment & Verification
 
-For hackathon judges and auditors, you can verify our deployment on the Stellar Testnet using the following credentials. Since AutoPilot relies heavily on native Stellar operations orchestrating off-chain AI, the primary engine account serves as our deployment anchor.
+For hackathon judges and auditors, you can verify our deployment on the Stellar Testnet using the following credentials.
 
 | Component | Identifier / Hash | Verification Link |
 | :--- | :--- | :--- |
-| **Contract ID / Engine Account** | `GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/account/GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ) |
-| **Deployment Transaction Hash** | `9136e5e8e74defb1a1e806d0ebf6b4ebc1041de8b9f77093baf1145352c6280d` | [View Tx on Stellar Expert](https://stellar.expert/explorer/testnet/tx/9136e5e8e74defb1a1e806d0ebf6b4ebc1041de8b9f77093baf1145352c6280d) |
+| **Soroban Smart Contract ID (AutoPilot Vault)** | `CACYX7GWKABSUFUF5MV5UVRH62F6A2D2SUSAHVC4FTIIKARTIBVUW6BP` | [View on Stellar Lab](https://lab.stellar.org/r/testnet/contract/CACYX7GWKABSUFUF5MV5UVRH62F6A2D2SUSAHVC4FTIIKARTIBVUW6BP) |
+| **Contract Deployment Transaction Hash** | `d3ad5ecb5401e3270c2fba9af35e04c2efd85f567bc6de87b362b2bbc4d06973` | [View Tx on Stellar Expert](https://stellar.expert/explorer/testnet/tx/d3ad5ecb5401e3270c2fba9af35e04c2efd85f567bc6de87b362b2bbc4d06973) |
+| **Engine Account (Off-chain Orchestrator)** | `GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/account/GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ) |
 
 ---
 
