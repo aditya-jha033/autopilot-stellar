@@ -1,0 +1,26 @@
+name: Soroban Smart Contract CI
+
+on:
+  push:
+    paths:
+      - 'contracts/**'
+      - '.github/workflows/contract.yml'
+  pull_request:
+    paths:
+      - 'contracts/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Rust
+      uses: dtolnay/rust-toolchain@stable
+      with:
+        targets: wasm32-unknown-unknown
+
+    - name: Build Contract
+      run: cargo build --manifest-path contracts/Cargo.toml --target wasm32-unknown-unknown --release
