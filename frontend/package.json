@@ -37,5 +37,13 @@
     "prisma": "^6.19.3",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "minimatch": {
+      "brace-expansion": "2.0.1"
+    },
+    "brace-expansion": "2.0.1",
+    "postcss": "8.5.18",
+    "sharp": "0.35.0"
   }
 }
