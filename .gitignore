@@ -64,3 +64,9 @@ coverage/
 *.pem
 .vercel
 .netlify
+
+# ── Rust & Soroban Smart Contracts ───────────────────────────
+target/
+Cargo.lock
+**/*.rs.bk
+*.wasm
