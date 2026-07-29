@@ -138,6 +138,8 @@ export default function OnboardingPage() {
           )}
         </button>
 
+        {/* TODO: Implement Albedo wallet integration here per user feedback */}
+
         {/* Lobstr Button */}
         <button
           onClick={() => handleComingSoon("Lobstr")}
