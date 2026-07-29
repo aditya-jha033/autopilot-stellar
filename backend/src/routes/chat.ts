@@ -14,8 +14,8 @@ export default async function chatRoutes(server: FastifyInstance) {
 
     const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-    const systemPrompt = `You are a financial automation assistant. The user will describe a rule they want to create.
-You must extract the intent and return a JSON object representing the rule.
+    const systemPrompt = `You are a financial automation assistant. The user will describe a rule they want to create, or ask for goal advice.
+You must extract the intent and return a JSON object.
 
 Return ONLY valid JSON, no markdown formatting.
 
@@ -26,7 +26,8 @@ Format:
   "amount": number (the value to move),
   "isPercentage": boolean (true if amount is a %),
   "description": "A short summary of what this rule does",
-  "memo": "A short memo for the stellar transaction (max 28 chars)"
+  "memo": "A short memo for the stellar transaction",
+  "coachResponse": "If the user asks for goal advice, output your response here asking: 1. By what time do you want to achieve this? 2. How much can you contribute daily/weekly/monthly? Leave other fields null."
 }`;
 
     try {
