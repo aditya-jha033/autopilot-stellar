@@ -427,7 +427,10 @@ function CreateVaultCard({
         {loading ? "Creating on Stellar…" : `Create ${type} vault`}
       </button>
 
-      <p className="text-[10px] text-white/20">Costs ~2.5 XLM from engine account</p>
+      <div className="flex flex-col items-center gap-0.5 mt-1">
+        <p className="text-[10px] text-white/40">Estimated Network Fee: ~0.00001 XLM (1-3s)</p>
+        <p className="text-[10px] text-white/20">Costs ~2.5 XLM reserve from engine account</p>
+      </div>
     </motion.div>
   );
 }
