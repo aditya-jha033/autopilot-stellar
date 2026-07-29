@@ -128,7 +128,7 @@ export default function OnboardingPage() {
                <Wallet className="text-blue-400 w-5 h-5" />
             </div>
             <span className="font-medium text-white/90 group-hover:text-white transition-colors">
-              Connect Freighter
+              {isLoading ? "Connecting..." : "Connect Freighter"}
             </span>
           </div>
           {isLoading ? (
