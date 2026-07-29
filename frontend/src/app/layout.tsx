@@ -30,6 +30,7 @@ export default function RootLayout({
       className={`${GeistSans.variable} ${GeistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col text-gray-900 tracking-tight">
+        {/* TODO: Add Day/Night theme toggle here per user feedback */}
         {children}
         <Analytics />
       </body>
