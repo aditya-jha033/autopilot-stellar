@@ -283,6 +283,7 @@ function VaultCard({
           </div>
 
         {/* TODO: Implement daily/weekly spending limits based on Saurav Kar's feedback. Needs smart contract update. */}
+        {/* TODO: Add basic analytics/charts for vault growth based on Soumen Das's feedback. */}
 
         <div className="bg-slate-900/50 rounded-xl p-6 border border-indigo-500/20 backdrop-blur-sm">
             <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">USDC</p>
