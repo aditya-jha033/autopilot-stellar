@@ -370,6 +370,28 @@ function VaultCard({
           </div>
         </div>
 
+        {/* Vault Analytics (Soumen Das Feedback) */}
+        <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-md relative overflow-hidden group mb-2">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <h3 className="text-white font-medium mb-4 flex items-center gap-2 text-sm">
+            <div className="w-6 h-6 rounded-full bg-emerald-500/10 flex items-center justify-center border border-emerald-500/20">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-emerald-400"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+            </div>
+            7-Day Growth
+          </h3>
+          <div className="h-24 flex items-end justify-between gap-2 mt-4 px-2">
+            {[40, 55, 45, 70, 60, 85, 95].map((height, i) => (
+              <div key={i} className="relative flex flex-col items-center group/bar w-full">
+                <div className="w-full bg-emerald-500/20 rounded-t-sm hover:bg-emerald-500/40 transition-all cursor-pointer" style={{ height: `${height}%` }}></div>
+                <div className="opacity-0 group-hover/bar:opacity-100 absolute -top-6 text-[9px] text-emerald-300 font-mono transition-opacity whitespace-nowrap bg-black/50 px-1.5 rounded">+{height}$</div>
+              </div>
+            ))}
+          </div>
+          <div className="flex justify-between mt-2 px-2 text-[9px] text-white/30 uppercase">
+            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+          </div>
+        </div>
+
       </motion.div>
 
       <AnimatePresence>
