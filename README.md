@@ -66,6 +66,8 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 ## 📸 Application Screenshots
 
+<!-- TODO: Add mobile screenshots for Suman Pradhan's feedback -->
+
 ### 1. Onboarding Screen
 ![Onboarding](assets/screenshots/onboarding.png)
 *A seamless Web3 onboarding experience allowing users to connect their Freighter wallet to access the AutoPilot dashboard.*
