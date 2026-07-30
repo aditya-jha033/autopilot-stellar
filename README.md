@@ -70,6 +70,10 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 ## 📸 Application Screenshots
 
+### Mobile View (Coming Soon)
+> Mobile optimizations and responsiveness added.
+![Mobile View](assets/screenshots/mobile_view.png)
+
 ### 1. Onboarding Screen
 ![Onboarding](assets/screenshots/onboarding.png)
 *A seamless Web3 onboarding experience allowing users to connect their Freighter wallet to access the AutoPilot dashboard.*
