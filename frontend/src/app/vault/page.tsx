@@ -281,7 +281,10 @@ function VaultCard({
               )}
             </p>
           </div>
-          <div className="bg-black/20 rounded-xl px-4 py-3">
+
+        {/* TODO: Implement daily/weekly spending limits based on Saurav Kar's feedback. Needs smart contract update. */}
+
+        <div className="bg-slate-900/50 rounded-xl p-6 border border-indigo-500/20 backdrop-blur-sm">
             <p className="text-[10px] text-white/30 uppercase tracking-wider mb-1">USDC</p>
             <p className="text-xl font-bold text-white font-mono">
               {refreshing ? (
