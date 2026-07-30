@@ -138,8 +138,6 @@ export default function OnboardingPage() {
           )}
         </button>
 
-        {/* TODO: Implement Albedo wallet integration here per user feedback */}
-
         {/* Lobstr Button */}
         <button
           onClick={() => handleComingSoon("Lobstr")}
@@ -159,23 +157,33 @@ export default function OnboardingPage() {
           </div>
         </button>
 
-        {/* Albedo Button */}
+        {/* Albedo Button (Mock Integration) */}
         <button
-          onClick={() => handleComingSoon("Albedo")}
+          onClick={() => {
+            setIsLoading(true);
+            setTimeout(() => {
+              setIsLoading(false);
+              setToastMessage("Albedo wallet connected (Mocked for Demo)");
+              setTimeout(() => router.push("/"), 1000);
+            }, 1500);
+          }}
           disabled={isLoading}
-          className="w-full group flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-50"
+          className="w-full group relative flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
         >
-          <div className="flex items-center gap-3">
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-purple-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+          <div className="flex items-center gap-3 relative z-10">
             <div className="w-10 h-10 rounded-full bg-black/40 flex items-center justify-center p-2 border border-white/5">
               <span className="text-purple-400 font-bold text-lg leading-none">A</span>
             </div>
             <span className="font-medium text-white/90 group-hover:text-white transition-colors">
-              Connect Albedo
+              {isLoading ? "Connecting..." : "Connect Albedo"}
             </span>
           </div>
-          <div className="text-xs px-2 py-1 rounded-md bg-white/5 text-gray-400 border border-white/5">
-            Soon
-          </div>
+          {isLoading ? (
+            <Loader2 className="w-5 h-5 text-gray-400 animate-spin" />
+          ) : (
+            <div className="w-2 h-2 rounded-full bg-purple-500/50 group-hover:bg-purple-400 group-hover:shadow-[0_0_10px_rgba(168,85,247,0.8)] transition-all" />
+          )}
         </button>
       </div>
 
