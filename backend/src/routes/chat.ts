@@ -21,7 +21,7 @@ Return ONLY valid JSON, no markdown formatting.
 
 Format:
 {
-  "trigger": "A short phrase describing when the rule runs (e.g. 'on every payment received')",
+  "trigger": "A short phrase describing when the rule runs (e.g. 'on every payment received'). If the user does not specify a condition or schedule (like 'every month' or 'on payment'), ALWAYS default to 'on every payment received'.",
   "action": "save | invest | buffer",
   "amount": number (the value to move),
   "isPercentage": boolean (true if amount is a %),

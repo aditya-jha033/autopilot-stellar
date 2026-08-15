@@ -19,6 +19,7 @@ import { getDb } from "../lib/db";
 import { executeRuleTransaction } from "../lib/engine";
 import { checkSpendingLimit, recordSpend } from "./limitGuard";
 import { PAYMENT_QUEUE_NAME, PaymentJobData, CronJobData, CRON_QUEUE_NAME, getConnectionOptions } from "./queue";
+import { fetchXLMBalance } from "../stellar/horizon";
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
@@ -194,13 +195,25 @@ async function processPaymentJob(job: Job<PaymentJobData>) {
 }
 
 async function processCronJob(job: Job<CronJobData>) {
-  const { userId, ruleId, amount, isPercentage, action, memo } = job.data;
+  const { userId, publicKey, ruleId, amount, isPercentage, action, memo } = job.data;
   const sql = getDb();
 
   console.log(`[Processor] ⏰ Cron job for rule ${ruleId}`);
 
-  const execAmount = amount;
-  if (execAmount <= 0) return { skipped: true, reason: "zero_amount" };
+  let execAmount = amount;
+  
+  if (isPercentage) {
+    try {
+      const balance = await fetchXLMBalance(publicKey);
+      execAmount = (amount / 100) * balance;
+      console.log(`[Processor] 💰 Calculated ${amount}% of live balance (${balance} XLM) = ${execAmount} XLM`);
+    } catch (err: any) {
+      console.warn(`[Processor] ⚠ Could not fetch live balance for ${publicKey}:`, err.message);
+      return { skipped: true, reason: "balance_fetch_failed" };
+    }
+  }
+
+  if (execAmount <= 0.0000001) return { skipped: true, reason: "zero_amount" };
 
   const userRows = await sql`
     SELECT id, "dailyLimit", "weeklyLimit" FROM "User" WHERE id = ${userId}::uuid LIMIT 1

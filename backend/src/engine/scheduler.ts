@@ -81,7 +81,7 @@ function registerCronRule(rule: {
       userId: rule.userId,
       publicKey: rule.publicKey,
       ruleId: rule.id,
-      amount: rule.isPercentage ? 0 : rule.amount, // percentage cron rules need live balance — skip for now
+      amount: rule.amount, // pass raw amount (e.g. 10 for 10%) so processor can calculate dynamic balance
       isPercentage: rule.isPercentage,
       action: rule.action,
       memo: rule.memo,
