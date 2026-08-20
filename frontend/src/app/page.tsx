@@ -146,8 +146,12 @@ export default function DashboardPage() {
         const account  = await safeJson(accountRes);
         const txData   = await safeJson(txRes);
         const rulesData = await safeJson(rulesRes);
-
-        if (!account) return; // not logged in / server error
+        
+        if (!account) {
+          console.error("Failed to load account data. The server might be down or returning an error.");
+          setLoading(false);
+          return;
+        }
 
         const userPublicKey = account.publicKey ?? "";
         setPublicKey(userPublicKey);
