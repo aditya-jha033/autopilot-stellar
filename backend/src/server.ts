@@ -22,16 +22,27 @@ const server = Fastify({
   trustProxy: true,
 });
 
-// Build allowed origins: always allow localhost in dev + any FRONTEND_URL set in env
+// Build allowed origins: always allow localhost in dev + any FRONTEND_URL(s) set in env
+// FRONTEND_URL can be a single URL or comma-separated list of URLs
+const envOrigins = (process.env.FRONTEND_URL ?? "")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean);
+
 const allowedOrigins = [
-  process.env.FRONTEND_URL,
+  ...envOrigins,
   "http://localhost:3000",
-].filter(Boolean) as string[];
+  "http://localhost:3001",
+];
 
 server.register(cors, {
   origin: (origin, cb) => {
-    // Allow requests with no origin (e.g., curl, Render health checks)
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    // Allow requests with no origin (e.g., curl, Render health checks, server-side Next.js)
+    if (!origin) return cb(null, true);
+    // Allow exact matches
+    if (allowedOrigins.includes(origin)) return cb(null, true);
+    // Allow any vercel.app subdomain (covers preview deploys)
+    if (origin.endsWith(".vercel.app")) return cb(null, true);
     cb(new Error(`CORS: origin '${origin}' not allowed`), false);
   },
   credentials: true,
