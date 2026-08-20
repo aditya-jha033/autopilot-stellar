@@ -36,10 +36,10 @@ Format:
           { role: "system", content: systemPrompt },
           { role: "user", content: message }
         ],
-        model: "llama-3.3-70b-versatile",
+        model: "groq/compound-mini",
         temperature: 0,
         max_tokens: 512,
-        response_format: { type: "json_object" },
+        // Note: compound-mini doesn't support response_format json_object, so we strip markdown manually
       });
 
       let responseText = completion.choices[0]?.message?.content;
