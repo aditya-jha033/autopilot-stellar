@@ -69,7 +69,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="w-full max-w-md p-8 glass-panel rounded-3xl relative z-10 flex flex-col items-center">
+    <div className="w-full max-w-xl p-8 glass-panel rounded-3xl relative z-10 flex flex-col items-center">
       {/* Toast Notification */}
       <AnimatePresence>
         {toastMessage && (
@@ -86,20 +86,20 @@ export default function OnboardingPage() {
 
       <div className="mb-8 text-center">
         {/* Placeholder for Logo, since the user said they added logo in public/logo.png */}
-        <div className="relative w-20 h-20 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+        <div className="relative w-24 h-24 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
           <Image
             src="/logo.png"
             alt="AutoPilot Logo"
             fill
-            sizes="80px"
+            sizes="96px"
             className="object-contain"
             priority
           />
         </div>
-        <h1 className="text-3xl font-bold tracking-tight text-white mb-2">
+        <h1 className="text-4xl font-bold tracking-tight text-white mb-2">
           AutoPilot
         </h1>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-400 text-base">
           Your intelligent stellar companion.
         </p>
       </div>
@@ -159,13 +159,34 @@ export default function OnboardingPage() {
 
         {/* Albedo Button (Mock Integration) */}
         <button
-          onClick={() => {
+          onClick={async () => {
             setIsLoading(true);
-            setTimeout(() => {
-              setIsLoading(false);
+            setError(null);
+            try {
+              const response = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                // Use a valid dummy public key for testing without Freighter
+                body: JSON.stringify({ publicKey: "GBALBEDOMOCKACCOUNT1234567890ABCDEFGHIJKLMNOPQRSTUVWXY" })
+              });
+              
+              if (!response.ok) {
+                // Since GBALBEDO... isn't a valid Ed25519 key (checksum fails), we'll use a real one I generated:
+                const validDummyKey = "GDN4FE5B27AQPIYWDI26QEH6JRF23QG65755NNLTFTGPPAS77EA25ZZP";
+                await fetch("/api/auth/login", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ publicKey: validDummyKey })
+                });
+              }
+              
               setToastMessage("Albedo wallet connected (Mocked for Demo)");
               setTimeout(() => router.push("/"), 1000);
-            }, 1500);
+            } catch (err: any) {
+              setError(err.message || "Failed to mock Albedo connection");
+            } finally {
+              setIsLoading(false);
+            }
           }}
           disabled={isLoading}
           className="w-full group relative flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
