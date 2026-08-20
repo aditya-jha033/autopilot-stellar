@@ -51,14 +51,25 @@ export default function OnboardingPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Authentication failed.");
+        // Sanitize raw server errors — never show "Internal Server Error" to user
+        const rawError = data.error || "";
+        const friendlyError = rawError.toLowerCase().includes("internal server")
+          ? "Backend is temporarily unavailable. Please try again in a moment."
+          : rawError || "Authentication failed.";
+        throw new Error(friendlyError);
       }
 
       // 3. On success, redirect to dashboard
       router.push("/");
     } catch (err: any) {
       console.error(err);
-      setError(err.message || "An unexpected error occurred. Please try again.");
+      const msg = err.message || "";
+      // Sanitize network-level errors too
+      setError(
+        msg.toLowerCase().includes("failed to fetch") || msg.toLowerCase().includes("networkerror")
+          ? "Could not reach the server. Is the backend running?"
+          : msg || "An unexpected error occurred. Please try again."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -157,36 +168,16 @@ export default function OnboardingPage() {
           </div>
         </button>
 
-        {/* Albedo Button (Mock Integration) */}
+        {/* Albedo Button (Mock Integration — demo only, no real API call) */}
         <button
-          onClick={async () => {
+          onClick={() => {
             setIsLoading(true);
             setError(null);
-            try {
-              const response = await fetch("/api/auth/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                // Use a valid dummy public key for testing without Freighter
-                body: JSON.stringify({ publicKey: "GBALBEDOMOCKACCOUNT1234567890ABCDEFGHIJKLMNOPQRSTUVWXY" })
-              });
-              
-              if (!response.ok) {
-                // Since GBALBEDO... isn't a valid Ed25519 key (checksum fails), we'll use a real one I generated:
-                const validDummyKey = "GDN4FE5B27AQPIYWDI26QEH6JRF23QG65755NNLTFTGPPAS77EA25ZZP";
-                await fetch("/api/auth/login", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ publicKey: validDummyKey })
-                });
-              }
-              
-              setToastMessage("Albedo wallet connected (Mocked for Demo)");
-              setTimeout(() => router.push("/"), 1000);
-            } catch (err: any) {
-              setError(err.message || "Failed to mock Albedo connection");
-            } finally {
+            // Albedo is a demo button — simulates a 1.5s connect delay then shows success toast
+            setTimeout(() => {
               setIsLoading(false);
-            }
+              setToastMessage("Albedo wallet connected (Demo Mode)");
+            }, 1500);
           }}
           disabled={isLoading}
           className="w-full group relative flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
