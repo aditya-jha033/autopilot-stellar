@@ -5,30 +5,39 @@ import { neon } from "@neondatabase/serverless";
 
 export default async function GoalsPage() {
   const session = await getSession();
-  const sql = neon(process.env.DATABASE_URL!);
-
-  const [rawGoals, rawRules] = await Promise.all([
-    sql`
-      SELECT g.id, g.name,
-             g."targetAmount",
-             g."currentAmount",
-             g.emoji,
-             g."linkedRuleId",
-             g."createdAt"
-      FROM   "Goal" g
-      JOIN   "User" u ON g."userId" = u.id
-      WHERE  u."publicKey" = ${session.publicKey}
-      ORDER  BY g."createdAt" DESC
-    `.catch(() => []),
-    sql`
-      SELECT r.id, r.description, r.action,
-             r.amount, r."isPercentage", r.status
-      FROM   "Rule" r
-      JOIN   "User" u ON r."userId" = u.id
-      WHERE  u."publicKey" = ${session.publicKey}
-      ORDER  BY r."createdAt" DESC
-    `.catch(() => []),
-  ]);
+  let rawGoals: any[] = [];
+  let rawRules: any[] = [];
+  if (process.env.DATABASE_URL) {
+    try {
+      const sql = neon(process.env.DATABASE_URL);
+      const results = await Promise.all([
+        sql`
+          SELECT g.id, g.name,
+                 g."targetAmount",
+                 g."currentAmount",
+                 g.emoji,
+                 g."linkedRuleId",
+                 g."createdAt"
+          FROM   "Goal" g
+          JOIN   "User" u ON g."userId" = u.id
+          WHERE  u."publicKey" = ${session.publicKey}
+          ORDER  BY g."createdAt" DESC
+        `.catch(() => []),
+        sql`
+          SELECT r.id, r.description, r.action,
+                 r.amount, r."isPercentage", r.status
+          FROM   "Rule" r
+          JOIN   "User" u ON r."userId" = u.id
+          WHERE  u."publicKey" = ${session.publicKey}
+          ORDER  BY r."createdAt" DESC
+        `.catch(() => []),
+      ]);
+      rawGoals = results[0];
+      rawRules = results[1];
+    } catch (e) {
+      console.error("Database connection failed", e);
+    }
+  }
 
   // Explicitly normalise to camelCase so GoalsClient never sees undefined fields
   const goals = (rawGoals as any[]).map((g) => ({

@@ -5,21 +5,27 @@ import { neon } from "@neondatabase/serverless";
 
 export default async function ChatPage() {
   const session = await getSession();
-  const sql = neon(process.env.DATABASE_URL!);
-
-  const rawRules = await sql`
-    SELECT r.id,
-           r.trigger,
-           r.action,
-           r.amount,
-           r."isPercentage",
-           r.status,
-           r.description
-    FROM   "Rule" r
-    JOIN   "User" u ON r."userId" = u.id
-    WHERE  u."publicKey" = ${session.publicKey}
-    ORDER  BY r."createdAt" DESC
-  `.catch(() => []);
+  let rawRules: any[] = [];
+  if (process.env.DATABASE_URL) {
+    try {
+      const sql = neon(process.env.DATABASE_URL);
+      rawRules = await sql`
+        SELECT r.id,
+               r.trigger,
+               r.action,
+               r.amount,
+               r."isPercentage",
+               r.status,
+               r.description
+        FROM   "Rule" r
+        JOIN   "User" u ON r."userId" = u.id
+        WHERE  u."publicKey" = ${session.publicKey}
+        ORDER  BY r."createdAt" DESC
+      `.catch(() => []);
+    } catch (e) {
+      console.error("Database connection failed", e);
+    }
+  }
 
   // Normalise to camelCase so ChatClient never receives undefined fields
   const rules = (rawRules as any[])
