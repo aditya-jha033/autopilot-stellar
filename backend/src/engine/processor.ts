@@ -23,11 +23,10 @@ import { fetchXLMBalance } from "../stellar/horizon";
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
-function doesPaymentMatchTrigger(trigger: string, asset: string): boolean {
+function doesPaymentMatchTrigger(trigger: string): boolean {
   const t = trigger.toLowerCase();
-  const isXLM = asset === "XLM";
 
-  const matchesTrigger =
+  return (
     t.includes("every payment") ||
     t.includes("payment received") ||
     t.includes("payment") ||
@@ -38,9 +37,9 @@ function doesPaymentMatchTrigger(trigger: string, asset: string): boolean {
     t.includes("salary") ||
     t.includes("income") ||
     t.includes("transfer") ||
-    t.includes("xlm");
-
-  return matchesTrigger && isXLM;
+    t.includes("xlm") ||
+    t.includes("usdc")
+  );
 }
 
 /**
@@ -99,7 +98,7 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
 
   // ── Step 4: Match + execute each rule
   for (const rule of rules) {
-    const triggerMatches = doesPaymentMatchTrigger(rule.trigger as string, asset);
+    const triggerMatches = doesPaymentMatchTrigger(rule.trigger as string);
     console.log(`[Processor] 🔍 Rule "${rule.trigger}" | matches: ${triggerMatches}`);
     if (!triggerMatches) continue;
 
@@ -232,7 +231,25 @@ async function processCronJob(job: Job<CronJobData>) {
     return { status: "blocked", reason };
   }
 
-  const destination = process.env.AUTOPILOT_PUBLIC_KEY!;
+  // ── Fetch user's vault as destination ───────────────────────────────────
+  const actionLower = action.toLowerCase();
+  const vaults = await sql`
+    SELECT type, "publicKey" FROM "Vault"
+    WHERE "userId" = ${userId}::uuid
+  `;
+
+  let destination: string | null = null;
+  if (actionLower.includes("save") || actionLower.includes("saving")) {
+    destination = vaults.find((v: any) => v.type === "savings")?.publicKey ?? null;
+  } else if (actionLower.includes("invest") || actionLower.includes("investment")) {
+    destination = vaults.find((v: any) => v.type === "investment")?.publicKey ?? null;
+  }
+
+  if (!destination) {
+    console.warn(`[Processor] ⚠ Cron: No ${actionLower} vault found for user ${userId.slice(0, 8)}… — create one in the Vault tab`);
+    return { skipped: true, reason: "no_vault" };
+  }
+
   const memoText = (memo ?? `AutoPilot:${action}:${execAmount}`).slice(0, 28);
   const execAmountStr = execAmount.toFixed(7);
 
@@ -246,8 +263,8 @@ async function processCronJob(job: Job<CronJobData>) {
          ${execAmount}, ${action.toLowerCase()}, ${memoText}, ${txHash}, NOW())
     `;
     try { await recordSpend(userId, execAmount); } catch {}
-    console.log(`[Processor] ✅ Cron rule "${action}" | ${execAmountStr} XLM | tx: ${txHash.slice(0, 20)}…`);
-    return { status: "executed", txHash, amount: execAmountStr };
+    console.log(`[Processor] ✅ Cron rule "${action}" | ${execAmountStr} XLM → vault ${destination.slice(0, 8)}… | tx: ${txHash.slice(0, 20)}…`);
+    return { status: "executed", txHash, amount: execAmountStr, destination };
   } catch (err: any) {
     console.error(`[Processor] ✗ Cron tx failed:`, err?.message);
     throw err;
