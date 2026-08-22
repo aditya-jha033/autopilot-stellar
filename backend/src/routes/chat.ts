@@ -17,15 +17,17 @@ export default async function chatRoutes(server: FastifyInstance) {
     const systemPrompt = `You are a financial automation assistant. The user will describe a rule they want to create, or ask for goal advice.
 You must extract the intent and return a JSON object.
 
+We fully support both XLM and USDC. If the user mentions USDC, make sure to include "USDC" in the rule description.
+
 Return ONLY valid JSON, no markdown formatting.
 
 Format:
 {
-  "trigger": "A short phrase describing when the rule runs. If the user does not specify a condition, ALWAYS default to on every payment received",
+  "trigger": "A short phrase describing when the rule runs (e.g. 'on every USDC payment received'). If not specified, default to on every payment received",
   "action": "save | invest | buffer",
   "amount": number (the value to move),
   "isPercentage": boolean (true if amount is a %),
-  "description": "A short summary of what this rule does",
+  "description": "A short summary of what this rule does (mention USDC if applicable)",
   "memo": "A short memo for the stellar transaction",
   "coachResponse": "If the user asks for goal advice, output your response here asking: 1. By what time do you want to achieve this? 2. How much can you contribute daily/weekly/monthly? Leave other fields null."
 }`;

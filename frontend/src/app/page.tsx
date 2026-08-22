@@ -118,6 +118,7 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [publicKey, setPublicKey] = useState("");
   const [xlmBalance, setXlmBalance] = useState("0");
+  const [usdcBalance, setUsdcBalance] = useState("0");
   const [isUnfunded, setIsUnfunded] = useState(false);
   const [txRows, setTxRows] = useState<any[]>([]);
   const [activeRules, setActiveRules] = useState(0);
@@ -169,15 +170,21 @@ export default function DashboardPage() {
               const native = (horizonData.balances ?? []).find(
                 (b: any) => b.asset_type === "native"
               );
+              const usdc = (horizonData.balances ?? []).find(
+                (b: any) => b.asset_code === "USDC"
+              );
               setXlmBalance(native?.balance ?? "0");
+              setUsdcBalance(usdc?.balance ?? "0");
               setIsUnfunded(false);
             } else {
               // 404 = account not funded yet on testnet
               setXlmBalance("0");
+              setUsdcBalance("0");
               setIsUnfunded(true);
             }
           } catch {
             setXlmBalance("0");
+            setUsdcBalance("0");
           }
         }
       } catch (err) {
@@ -268,14 +275,23 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="flex items-end gap-2 md:gap-3 mb-2 flex-wrap">
-              <span className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-none break-all">
-                {parseFloat(xlmBalance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-              </span>
-              <span className="text-xl md:text-2xl font-medium text-white/30 mb-1">XLM</span>
+            <div className="flex flex-col md:flex-row md:items-end gap-6 md:gap-12 mb-2">
+              <div className="flex items-end gap-2 md:gap-3 flex-wrap">
+                <span className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-none break-all">
+                  {parseFloat(xlmBalance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>
+                <span className="text-xl md:text-2xl font-medium text-white/30 mb-1">XLM</span>
+              </div>
+              
+              <div className="flex items-end gap-2 md:gap-3 flex-wrap">
+                <span className="text-4xl md:text-5xl font-bold text-white tracking-tight leading-none break-all">
+                  {parseFloat(usdcBalance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </span>
+                <span className="text-xl md:text-2xl font-medium text-teal-400/60 mb-1">USDC</span>
+              </div>
             </div>
 
-            <p className="text-white/25 text-sm">
+            <p className="text-white/25 text-sm mt-4">
               Live balance from Stellar Horizon API
             </p>
           </div>
