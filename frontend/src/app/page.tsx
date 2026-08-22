@@ -156,7 +156,7 @@ export default function DashboardPage() {
         const userPublicKey = account.publicKey ?? "";
         setPublicKey(userPublicKey);
         setActiveRules(account.activeRules ?? (Array.isArray(rulesData) ? rulesData.length : 0));
-        setTxRows(Array.isArray(txData) ? txData.slice(0, 10) : []);
+        setTxRows(Array.isArray(txData) ? txData.slice(0, 5) : []);
 
         // Fetch the USER's own live Stellar balance from Horizon
         if (userPublicKey) {
@@ -294,7 +294,7 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between px-4 md:px-6 py-4 border-b border-white/[0.06]">
             <div>
               <h2 className="text-sm font-semibold text-white">Recent Activity</h2>
-              <p className="text-xs text-white/30 mt-0.5">Last 10 automated transactions</p>
+              <p className="text-xs text-white/30 mt-0.5">Last 5 automated transactions</p>
             </div>
             <Link href="/rules" className="flex items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors">
               View rules <ChevronRight className="w-3.5 h-3.5" />
