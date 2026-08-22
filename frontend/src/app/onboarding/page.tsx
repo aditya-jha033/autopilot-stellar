@@ -80,7 +80,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="w-full max-w-xl p-8 glass-panel rounded-3xl relative z-10 flex flex-col items-center">
+    <div className="w-full max-w-6xl mx-auto px-6 py-12 lg:py-24 relative z-10 flex flex-col lg:flex-row items-center gap-16">
       {/* Toast Notification */}
       <AnimatePresence>
         {toastMessage && (
@@ -88,32 +88,59 @@ export default function OnboardingPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute -top-16 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-sm whitespace-nowrap shadow-xl"
+            className="fixed top-8 left-1/2 -translate-x-1/2 bg-white/10 backdrop-blur-md border border-white/20 text-white px-4 py-2 rounded-full text-sm whitespace-nowrap shadow-xl z-50"
           >
             {toastMessage}
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className="mb-8 text-center">
-        {/* Placeholder for Logo, since the user said they added logo in public/logo.png */}
-        <div className="relative w-24 h-24 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-          <Image
-            src="/logo.png"
-            alt="AutoPilot Logo"
-            fill
-            sizes="96px"
-            className="object-contain"
-            priority
-          />
+      {/* Landing Copy (Left Column) */}
+      <div className="flex-1 text-center lg:text-left space-y-8">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-blue-400 mb-4">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+          </span>
+          AutoPilot Beta Live on Stellar Testnet
         </div>
-        <h1 className="text-4xl font-bold tracking-tight text-white mb-2">
-          AutoPilot
+        
+        <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
+          Financial automation <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">in plain English.</span>
         </h1>
-        <p className="text-gray-400 text-base">
-          Your intelligent stellar companion.
+        
+        <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          Connect your Stellar wallet and tell our AI Coach how you want to save, invest, and manage your funds. We handle the smart contracts and transactions.
         </p>
+
+        <div className="grid grid-cols-2 gap-6 pt-4 max-w-lg mx-auto lg:mx-0 text-left">
+          <div>
+            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"/> Savings Vaults</h3>
+            <p className="text-xs text-white/50">Auto-sweep unused XLM/USDC into dedicated vaults.</p>
+          </div>
+          <div>
+            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-purple-500"/> Goal Tracking</h3>
+            <p className="text-xs text-white/50">Set goals and watch your funds grow with real-time graphs.</p>
+          </div>
+        </div>
       </div>
+
+      {/* Wallet Connect Panel (Right Column) */}
+      <div className="w-full max-w-md p-8 glass-panel rounded-3xl shrink-0">
+        <div className="mb-8 text-center">
+          <div className="relative w-20 h-20 mx-auto mb-4 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+            <Image
+              src="/logo.png"
+              alt="AutoPilot Logo"
+              fill
+              sizes="80px"
+              className="object-contain"
+              priority
+            />
+          </div>
+          <h2 className="text-2xl font-bold text-white mb-2">Connect Wallet</h2>
+          <p className="text-sm text-gray-400">Join the waitlist by connecting.</p>
+        </div>
 
       <div className="w-full space-y-4">
         {error && (
@@ -208,6 +235,7 @@ export default function OnboardingPage() {
           Running on Stellar testnet
         </p>
       </div>
+    </div>
     </div>
   );
 }

@@ -39,3 +39,15 @@ body {
 .glass-panel:hover {
   background: var(--color-glass-bg-hover);
 }
+
+/* Quick Day/Night Toggle */
+.theme-light {
+  filter: invert(1) hue-rotate(180deg);
+  background-color: #fff;
+}
+
+.theme-light img,
+.theme-light svg,
+.theme-light video {
+  filter: invert(1) hue-rotate(180deg);
+}

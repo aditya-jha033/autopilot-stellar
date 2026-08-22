@@ -199,6 +199,11 @@ function WithdrawModal({
           Funds will be sent to your connected wallet. A minimum reserve of 2.5 XLM must remain in the vault.
         </p>
 
+        <div className="flex items-center justify-between px-3 py-2 bg-white/[0.02] border border-white/[0.04] rounded-lg mb-4 text-[10px] text-white/40">
+          <span>Estimated Network Fee:</span>
+          <span className="font-mono text-white/70">~0.00001 XLM (1-3s)</span>
+        </div>
+
         <button
           onClick={handleWithdraw}
           disabled={loading}
@@ -464,7 +469,11 @@ function CreateVaultCard({
       </div>
       <div>
         <h3 className="text-sm font-semibold text-white mb-1">{meta.label}</h3>
-        <p className="text-xs text-white/35 max-w-[200px] leading-relaxed">{meta.desc}</p>
+        <p className="text-xs text-white/35 max-w-[200px] leading-relaxed mb-3">{meta.desc}</p>
+        <div className="flex flex-col gap-1 items-center bg-black/40 border border-white/5 rounded-lg px-3 py-2 text-[10px] text-white/40">
+          <span>Stellar Account Reserve: ~2.5 XLM</span>
+          <span>Network Fee: ~0.00001 XLM</span>
+        </div>
       </div>
 
       {error && (

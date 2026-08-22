@@ -13,6 +13,8 @@ import {
   LogOut,
   Copy,
   Check,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -33,6 +35,20 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
   const [disconnecting, setDisconnecting] = useState(false);
 
   const truncated = `${publicKey.slice(0, 6)}...${publicKey.slice(-4)}`;
+
+  const [isLightMode, setIsLightMode] = useState(false);
+
+  // Initialize theme from body class on mount
+  import("react").then((React) => {
+    React.useEffect(() => {
+      setIsLightMode(document.body.classList.contains("theme-light"));
+    }, []);
+  });
+
+  const toggleTheme = () => {
+    const isLight = document.body.classList.toggle("theme-light");
+    setIsLightMode(isLight);
+  };
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(publicKey);
@@ -130,6 +146,16 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
                   </motion.div>
                 )}
               </AnimatePresence>
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            <button
+              onClick={toggleTheme}
+              className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-xl text-xs text-white/40 hover:text-white/80 bg-white/[0.04] hover:bg-white/[0.08] transition-all"
+            >
+              {isLightMode ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
+              {isLightMode ? "Night Mode" : "Day Mode"}
             </button>
           </div>
 

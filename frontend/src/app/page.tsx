@@ -13,6 +13,7 @@ import {
   Clock,
   Sparkles,
   ChevronRight,
+  Vault,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -330,20 +331,37 @@ export default function DashboardPage() {
 
         {/* CTA if no rules */}
         {activeRules === 0 && (
-          <Link href="/chat">
-            <div className="mt-6 flex items-center justify-between p-5 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-2xl hover:border-blue-500/40 transition-all group">
-              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-blue-400" />
+          <div className="mt-6 flex flex-col gap-3">
+            <Link href="/vault">
+              <div className="flex items-center justify-between p-5 bg-gradient-to-r from-emerald-600/10 to-teal-600/10 border border-emerald-500/20 rounded-2xl hover:border-emerald-500/40 transition-all group">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center">
+                    <Vault className="w-5 h-5 text-emerald-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Create a Savings Vault</p>
+                    <p className="text-xs text-white/40 mt-0.5">Required before rules can save funds automatically</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-white">Create your first automation rule</p>
-                  <p className="text-xs text-white/40 mt-0.5">Tell AutoPilot what to do in plain English</p>
-                </div>
+                <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/50 transition-colors" />
               </div>
-              <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/50 transition-colors" />
-            </div>
-          </Link>
+            </Link>
+
+            <Link href="/chat">
+              <div className="flex items-center justify-between p-5 bg-gradient-to-r from-blue-600/10 to-purple-600/10 border border-blue-500/20 rounded-2xl hover:border-blue-500/40 transition-all group">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 border border-blue-500/30 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">Create your first automation rule</p>
+                    <p className="text-xs text-white/40 mt-0.5">Tell AutoPilot what to do in plain English</p>
+                  </div>
+                </div>
+                <ChevronRight className="w-5 h-5 text-white/20 group-hover:text-white/50 transition-colors" />
+              </div>
+            </Link>
+          </div>
         )}
         <EngineStatusPanel />
       </div>
