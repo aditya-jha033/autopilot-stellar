@@ -132,7 +132,7 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
     const action = (rule.action as string).toLowerCase();
     let destination: string | null = null;
 
-    if (action.includes("save") || action.includes("saving")) {
+    if (action.includes("save") || action.includes("saving") || action.includes("buffer")) {
       destination = savingsVault?.publicKey ?? null;
     } else if (action.includes("invest") || action.includes("investment")) {
       destination = investVault?.publicKey ?? null;
