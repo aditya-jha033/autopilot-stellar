@@ -224,16 +224,19 @@ function VaultCard({
   const meta = VAULT_META[vault.type];
   const Icon = meta.icon;
   const [balance, setBalance] = useState<VaultBalance | null>(null);
+  const [analytics, setAnalytics] = useState<{ raw: number[]; scaled: number[] } | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showWithdraw, setShowWithdraw] = useState(false);
 
   const fetchBalance = useCallback(async () => {
     setRefreshing(true);
     try {
-      const res = await fetch(`/api/vault/${vault.type}/balance`, {
-        credentials: "include",
-      });
+      const [res, analyticsRes] = await Promise.all([
+        fetch(`/api/vault/${vault.type}/balance`, { credentials: "include" }),
+        fetch(`/api/vault/${vault.type}/analytics`, { credentials: "include" })
+      ]);
       if (res.ok) setBalance(await res.json());
+      if (analyticsRes.ok) setAnalytics(await analyticsRes.json());
     } catch {}
     setRefreshing(false);
   }, [vault.type]);
@@ -380,15 +383,22 @@ function VaultCard({
             7-Day Growth
           </h3>
           <div className="h-24 flex items-end justify-between gap-2 mt-4 px-2">
-            {[40, 55, 45, 70, 60, 85, 95].map((height, i) => (
-              <div key={i} className="relative flex flex-col items-center group/bar w-full">
-                <div className="w-full bg-emerald-500/20 rounded-t-sm hover:bg-emerald-500/40 transition-all cursor-pointer" style={{ height: `${height}%` }}></div>
-                <div className="opacity-0 group-hover/bar:opacity-100 absolute -top-6 text-[9px] text-emerald-300 font-mono transition-opacity whitespace-nowrap bg-black/50 px-1.5 rounded">+{height}$</div>
-              </div>
-            ))}
+            {(analytics?.scaled || [5, 5, 5, 5, 5, 5, 5]).map((height, i) => {
+              const rawVal = analytics?.raw?.[i] ?? 0;
+              return (
+                <div key={i} className="relative flex flex-col items-center group/bar w-full">
+                  <div className="w-full bg-emerald-500/20 rounded-t-sm hover:bg-emerald-500/40 transition-all cursor-pointer" style={{ height: `${height}%` }}></div>
+                  <div className="opacity-0 group-hover/bar:opacity-100 absolute -top-6 text-[9px] text-emerald-300 font-mono transition-opacity whitespace-nowrap bg-black/50 px-1.5 rounded">+{rawVal}</div>
+                </div>
+              );
+            })}
           </div>
           <div className="flex justify-between mt-2 px-2 text-[9px] text-white/30 uppercase">
-            <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            {Array.from({ length: 7 }, (_, i) => {
+              const d = new Date();
+              d.setDate(d.getDate() - 6 + i);
+              return <span key={i}>{d.toLocaleDateString('en-US', { weekday: 'short' })}</span>;
+            })}
           </div>
         </div>
 

@@ -150,6 +150,57 @@ export default async function vaultRoutes(server: FastifyInstance) {
     }
   });
 
+  // ── Get analytics data (7-day growth) ─────────────────────────────────
+
+  server.get("/:type/analytics", async (request, reply) => {
+    const { type } = request.params as { type: string };
+    const sql = getDb();
+
+    try {
+      // Map vault type to transaction type string ('savings' -> 'save', 'investment' -> 'invest')
+      const txType = type === "savings" ? "save" : type === "investment" ? "invest" : type;
+
+      const txRows = await sql`
+        SELECT amount, "createdAt" 
+        FROM "AutomatedTransaction"
+        WHERE "userId" = ${request.user.id}::uuid 
+          AND type = ${txType}
+          AND "createdAt" >= NOW() - INTERVAL '7 days'
+      `;
+
+      // Group by last 7 days (index 6 = today, index 0 = 6 days ago)
+      const last7Days = Array(7).fill(0);
+      const today = new Date();
+      
+      txRows.forEach(tx => {
+        const txDate = new Date(tx.createdAt);
+        const diffTime = today.getTime() - txDate.getTime();
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (diffDays >= 0 && diffDays < 7) {
+          const index = 6 - diffDays;
+          last7Days[index] += parseFloat(tx.amount);
+        }
+      });
+
+      // Avoid returning all 0 heights if no transactions exist (keep baseline of 5%)
+      const maxAmount = Math.max(...last7Days, 0.001);
+      const scaled = last7Days.map(amt => Math.max(5, Math.min(100, (amt / maxAmount) * 100)));
+
+      return reply.send({
+        raw: last7Days.map(a => Number(a.toFixed(2))),
+        scaled,
+      });
+    } catch (err: any) {
+      console.error("[Vault] Analytics error:", err);
+      // Fallback response for safe UI rendering
+      return reply.send({
+        raw: [0, 0, 0, 0, 0, 0, 0],
+        scaled: [5, 5, 5, 5, 5, 5, 5]
+      });
+    }
+  });
+
   // ── Withdraw from vault ───────────────────────────────────────────────
 
   server.post("/:type/withdraw", async (request, reply) => {

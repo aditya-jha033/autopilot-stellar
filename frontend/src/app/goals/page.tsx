@@ -3,6 +3,9 @@ import GoalsClient from "./GoalsClient";
 import { getSession } from "@/lib/session";
 import { neon } from "@neondatabase/serverless";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function GoalsPage() {
   const session = await getSession();
   let rawGoals: any[] = [];
