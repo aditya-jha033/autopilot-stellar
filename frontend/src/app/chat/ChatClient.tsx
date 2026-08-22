@@ -840,4 +840,8 @@ export default function ChatClient({ initialRules, hasVaults = false }: { initia
 / /  
  A l e r t  
  b u t t o n  
+ / /  
+ U S D C  
+ l o g i c  
+ f i x  
  
