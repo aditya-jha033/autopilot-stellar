@@ -96,14 +96,12 @@ async function openStream(userId: string, publicKey: string) {
           if (msg.includes("404") || msg.includes("Not Found")) return;
           console.error(`[Stream] ✗ Error on ${publicKey.slice(0, 8)}…:`, msg);
 
-          // Auto-recover on network reset errors — next syncStreams() will reopen
-          if (msg.includes("ECONNRESET") || msg.includes("timeout") || msg.includes("socket hang up")) {
-            const handle = activeStreams.get(publicKey);
-            if (handle) {
-              try { handle.close(); } catch {}
-              activeStreams.delete(publicKey);
-              console.log(`[Stream] 🔄 Stream removed for ${publicKey.slice(0, 8)}… — will reopen on next sync`);
-            }
+          // Auto-recover on ANY network or server error — next syncStreams() will reopen
+          const handle = activeStreams.get(publicKey);
+          if (handle) {
+            try { handle.close(); } catch {}
+            activeStreams.delete(publicKey);
+            console.log(`[Stream] 🔄 Stream closed for ${publicKey.slice(0, 8)}… — will auto-reconnect on next sync`);
           }
         },
       });
