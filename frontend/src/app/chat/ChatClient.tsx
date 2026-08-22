@@ -161,6 +161,8 @@ function EditPanel({
   const [amount, setAmount] = useState(String(rule.amount));
   const [isPercentage, setIsPercentage] = useState(rule.isPercentage);
 
+  const currency = rule.description?.includes("USDC") || rule.trigger?.includes("USDC") ? "USDC" : "XLM";
+
   const handleSave = () => {
     const parsed = parseFloat(amount);
     if (isNaN(parsed) || parsed <= 0) return;
@@ -186,7 +188,7 @@ function EditPanel({
         <div className="flex gap-2">
           {[
             { label: "Percentage (%)", value: true },
-            { label: "Fixed (XLM)", value: false },
+            { label: `Fixed (${currency})`, value: false },
           ].map((opt) => (
             <button
               key={String(opt.value)}
@@ -216,7 +218,7 @@ function EditPanel({
             onKeyDown={(e) => { if (e.key === "Enter") handleSave(); if (e.key === "Escape") onCancel(); }}
           />
           <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/30">
-            {isPercentage ? "%" : "XLM"}
+            {isPercentage ? "%" : currency}
           </span>
         </div>
 
@@ -232,7 +234,7 @@ function EditPanel({
                   : "bg-white/[0.04] border-white/[0.05] text-white/35 hover:text-white/60"
               }`}
             >
-              {v}{isPercentage ? "%" : " XLM"}
+              {v}{isPercentage ? "%" : ` ${currency}`}
             </button>
           ))}
         </div>
@@ -477,6 +479,8 @@ function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string,
   const [isPercentage, setIsPercentage] = useState(rule.isPercentage);
   const [saving, setSaving] = useState(false);
 
+  const currency = rule.description?.includes("USDC") || rule.trigger?.includes("USDC") ? "USDC" : "XLM";
+
   const handleSave = async () => {
     const parsed = parseFloat(amount);
     if (isNaN(parsed) || parsed <= 0) return;
@@ -491,7 +495,7 @@ function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string,
       <div className="p-4 flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold text-white">
-            {rule.action} {rule.amount}{rule.isPercentage ? "%" : " XLM"}
+            {rule.action} {rule.amount}{rule.isPercentage ? "%" : ` ${currency}`}
           </p>
           <p className="text-xs text-white/40 mt-0.5">{rule.trigger}</p>
         </div>
@@ -510,7 +514,7 @@ function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string,
               <div className="flex gap-2">
                 {[
                   { label: "Percentage (%)", value: true },
-                  { label: "Fixed (XLM)", value: false },
+                  { label: `Fixed (${currency})`, value: false },
                 ].map((opt) => (
                   <button
                     key={String(opt.value)}
@@ -531,7 +535,7 @@ function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string,
                   className="w-full bg-black/40 border border-white/[0.10] rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/40"
                 />
                 <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/30">
-                  {isPercentage ? "%" : "XLM"}
+                  {isPercentage ? "%" : currency}
                 </span>
               </div>
               <button
@@ -551,7 +555,7 @@ function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string,
 }
 
 // ── Main Component ────────────────────────────────────────────────────────────
-export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
+export default function ChatClient({ initialRules, hasVaults = false }: { initialRules: Rule[], hasVaults?: boolean }) {
   const [rules, setRules] = useState<Rule[]>(initialRules);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -633,7 +637,9 @@ export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
       setToast("Rule activated — AutoPilot is watching 👁");
       setMessages(prev => [...prev, {
         id: crypto.randomUUID(), role: "assistant",
-        content: "✅ Rule activated! AutoPilot will now monitor your wallet. Want to create another?",
+        content: hasVaults
+          ? "✅ Rule activated! AutoPilot will now monitor your wallet. Want to create another?"
+          : "✅ Rule activated! ⚠️ However, you don't have a Vault set up yet. AutoPilot cannot store funds until you create one in the Vault tab.",
         isConfirmation: true,
       }]);
     } else {
@@ -659,7 +665,7 @@ export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
   const isEmpty = messages.length === 0;
 
   return (
-    <div className="flex flex-col h-screen relative">
+    <div className="flex flex-col h-[calc(100dvh-4rem)] md:h-screen relative">
       {/* Toast */}
       <AnimatePresence>
         {toast && (
