@@ -837,3 +837,7 @@ export default function ChatClient({ initialRules, hasVaults = false }: { initia
     </div>
   );
 }
+/ /  
+ A l e r t  
+ b u t t o n  
+ 
