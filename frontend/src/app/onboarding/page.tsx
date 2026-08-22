@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { isConnected, requestAccess } from "@stellar/freighter-api";
+import albedo from "@albedo-link/intent";
 import { Loader2, Wallet, AlertCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -65,6 +66,48 @@ export default function OnboardingPage() {
       console.error(err);
       const msg = err.message || "";
       // Sanitize network-level errors too
+      setError(
+        msg.toLowerCase().includes("failed to fetch") || msg.toLowerCase().includes("networkerror")
+          ? "Could not reach the server. Is the backend running?"
+          : msg || "An unexpected error occurred. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleAlbedoConnect = async () => {
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const res = await albedo.publicKey({});
+      const publicKey = res.pubkey;
+
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ publicKey }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const rawError = data.error || "";
+        const friendlyError = rawError.toLowerCase().includes("internal server")
+          ? "Backend is temporarily unavailable. Please try again in a moment."
+          : rawError || "Authentication failed.";
+        throw new Error(friendlyError);
+      }
+
+      router.push("/");
+    } catch (err: any) {
+      console.error(err);
+      if (err.message && err.message.includes("closed")) {
+        // user closed the popup
+        return;
+      }
+      const msg = err.message || "";
       setError(
         msg.toLowerCase().includes("failed to fetch") || msg.toLowerCase().includes("networkerror")
           ? "Could not reach the server. Is the backend running?"
@@ -195,17 +238,9 @@ export default function OnboardingPage() {
           </div>
         </button>
 
-        {/* Albedo Button (Mock Integration — demo only, no real API call) */}
+        {/* Albedo Button */}
         <button
-          onClick={() => {
-            setIsLoading(true);
-            setError(null);
-            // Albedo is a demo button — simulates a 1.5s connect delay then shows success toast
-            setTimeout(() => {
-              setIsLoading(false);
-              setToastMessage("Albedo wallet connected (Demo Mode)");
-            }, 1500);
-          }}
+          onClick={handleAlbedoConnect}
           disabled={isLoading}
           className="w-full group relative flex items-center justify-between p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed overflow-hidden"
         >

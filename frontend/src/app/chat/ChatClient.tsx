@@ -27,6 +27,7 @@ interface ParsedRule {
   limits: { maxPerMonth: number | null };
   description: string;
   memo: string;
+  coachResponse?: string;
 }
 
 interface Message {
@@ -431,7 +432,7 @@ function ChatBubble({
 }
 
 // ── Coach View ────────────────────────────────────────────────────────────────
-function CoachView({ rules, onAsk }: { rules: Rule[]; onAsk: (prompt: string) => void }) {
+function CoachView({ rules, onAsk, onUpdateRule }: { rules: Rule[]; onAsk: (prompt: string) => void; onUpdateRule: (id: string, updates: Partial<Rule>) => Promise<void> }) {
   const insights = buildInsights(rules);
   return (
     <div className="flex-1 overflow-y-auto px-4 md:px-6 py-4 md:py-6">
@@ -451,6 +452,100 @@ function CoachView({ rules, onAsk }: { rules: Rule[]; onAsk: (prompt: string) =>
           </motion.div>
         ))}
       </div>
+      <div className="mt-8 mb-6">
+        <div className="flex items-center gap-2 mb-4">
+          <Zap className="w-4 h-4 text-blue-400" />
+          <p className="text-xs font-semibold text-white/40 uppercase tracking-wider">Active Rules</p>
+        </div>
+        <div className="space-y-3">
+          {rules.filter(r => r.status === "active").map((r) => (
+            <RuleEditorCard key={r.id} rule={r} onUpdate={onUpdateRule} />
+          ))}
+          {rules.filter(r => r.status === "active").length === 0 && (
+            <p className="text-sm text-white/30 italic">No active rules to edit.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Rule Editor Card ──────────────────────────────────────────────────────────
+function RuleEditorCard({ rule, onUpdate }: { rule: Rule; onUpdate: (id: string, updates: Partial<Rule>) => Promise<void> }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [amount, setAmount] = useState(String(rule.amount));
+  const [isPercentage, setIsPercentage] = useState(rule.isPercentage);
+  const [saving, setSaving] = useState(false);
+
+  const handleSave = async () => {
+    const parsed = parseFloat(amount);
+    if (isNaN(parsed) || parsed <= 0) return;
+    setSaving(true);
+    await onUpdate(rule.id, { amount: parsed, isPercentage });
+    setSaving(false);
+    setIsEditing(false);
+  };
+
+  return (
+    <div className="bg-white/[0.04] border border-white/[0.08] rounded-2xl overflow-hidden transition-all">
+      <div className="p-4 flex items-center justify-between">
+        <div>
+          <p className="text-sm font-semibold text-white">
+            {rule.action} {rule.amount}{rule.isPercentage ? "%" : " XLM"}
+          </p>
+          <p className="text-xs text-white/40 mt-0.5">{rule.trigger}</p>
+        </div>
+        <button
+          onClick={() => setIsEditing(!isEditing)}
+          className="p-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-white/60 hover:text-white transition-colors"
+        >
+          {isEditing ? <X className="w-4 h-4" /> : <Edit3 className="w-4 h-4" />}
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {isEditing && (
+          <motion.div initial={{ height: 0 }} animate={{ height: "auto" }} exit={{ height: 0 }} className="overflow-hidden">
+            <div className="px-4 pb-4 border-t border-white/[0.06] pt-4 space-y-3">
+              <div className="flex gap-2">
+                {[
+                  { label: "Percentage (%)", value: true },
+                  { label: "Fixed (XLM)", value: false },
+                ].map((opt) => (
+                  <button
+                    key={String(opt.value)}
+                    onClick={() => setIsPercentage(opt.value)}
+                    className={`flex-1 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+                      isPercentage === opt.value
+                        ? "bg-blue-500/15 border-blue-500/30 text-blue-400"
+                        : "bg-white/[0.04] border-white/[0.06] text-white/35 hover:text-white/60"
+                    }`}
+                  >
+                    {opt.label}
+                  </button>
+                ))}
+              </div>
+              <div className="relative">
+                <input
+                  type="number" min="0.01" step="any" value={amount} onChange={(e) => setAmount(e.target.value)}
+                  className="w-full bg-black/40 border border-white/[0.10] rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-blue-500/40"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/30">
+                  {isPercentage ? "%" : "XLM"}
+                </span>
+              </div>
+              <button
+                onClick={handleSave}
+                disabled={saving || !amount || isNaN(parseFloat(amount))}
+                className="w-full py-2 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all"
+              >
+                {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
+                {saving ? "Saving…" : "Save Changes"}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -502,6 +597,11 @@ export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
           content: data.error ?? data.message ?? "Sorry, I couldn't parse that. Try rephrasing.",
           isError: !data.message,
         }]);
+      } else if (data.rule.coachResponse) {
+        setMessages(prev => [...prev, {
+          id: crypto.randomUUID(), role: "assistant",
+          content: data.rule.coachResponse,
+        }]);
       } else {
         setMessages(prev => [...prev, {
           id: crypto.randomUUID(), role: "assistant",
@@ -538,6 +638,20 @@ export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
       }]);
     } else {
       setToast("Failed to activate rule. Please try again.");
+    }
+  };
+
+  const handleUpdateRule = async (id: string, updates: Partial<Rule>) => {
+    const res = await fetch(`/api/rules/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    });
+    if (res.ok) {
+      setRules(prev => prev.map(r => r.id === id ? { ...r, ...updates } : r));
+      setToast("Rule updated successfully ✅");
+    } else {
+      setToast("Failed to update rule.");
     }
   };
 
@@ -607,7 +721,7 @@ export default function ChatClient({ initialRules }: { initialRules: Rule[] }) {
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             className="flex-1 overflow-hidden flex flex-col"
           >
-            <CoachView rules={rules} onAsk={(prompt) => { setMode("chat"); sendMessage(prompt); }} />
+            <CoachView rules={rules} onAsk={(prompt) => { setMode("chat"); sendMessage(prompt); }} onUpdateRule={handleUpdateRule} />
           </motion.div>
         ) : (
           <motion.div
