@@ -16,7 +16,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
@@ -38,12 +38,9 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
 
   const [isLightMode, setIsLightMode] = useState(false);
 
-  // Initialize theme from body class on mount
-  import("react").then((React) => {
-    React.useEffect(() => {
-      setIsLightMode(document.body.classList.contains("theme-light"));
-    }, []);
-  });
+  useEffect(() => {
+    setIsLightMode(document.body.classList.contains("theme-light"));
+  }, []);
 
   const toggleTheme = () => {
     const isLight = document.body.classList.toggle("theme-light");
