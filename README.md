@@ -11,6 +11,12 @@
     <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white" alt="Tailwind" />
     <img src="https://img.shields.io/badge/Groq-black?style=flat" alt="Groq AI" />
   </p>
+  <p>
+    <a href="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/frontend.yml"><img src="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/frontend.yml/badge.svg" alt="Frontend CI" /></a>
+    <a href="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/backend.yml"><img src="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/backend.yml/badge.svg" alt="Backend CI" /></a>
+    <a href="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/contract.yml"><img src="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/contract.yml/badge.svg" alt="Contract CI" /></a>
+    <a href="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/security.yml"><img src="https://github.com/aditya-jha033/autopilot-stellar/actions/workflows/security.yml/badge.svg" alt="Security Audit" /></a>
+  </p>
 </div>
 
 <div align="center">
