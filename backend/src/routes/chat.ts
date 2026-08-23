@@ -17,7 +17,7 @@ export default async function chatRoutes(server: FastifyInstance) {
     const systemPrompt = `You are a financial automation assistant. The user will describe a rule they want to create, or ask for goal advice.
 You must extract the intent and return a JSON object.
 
-We fully support both XLM and USDC. If the user mentions USDC, make sure to include "USDC" in the rule description.
+We currently only support XLM automated sweeps. If the user mentions USDC, assume they mean XLM or politely ignore the asset type in the rule description.
 
 Return ONLY valid JSON, no markdown formatting.
 

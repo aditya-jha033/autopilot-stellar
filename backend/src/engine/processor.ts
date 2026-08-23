@@ -23,8 +23,11 @@ import { fetchXLMBalance } from "../stellar/horizon";
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 
-function doesPaymentMatchTrigger(trigger: string): boolean {
+function doesPaymentMatchTrigger(trigger: string, asset: string): boolean {
   const t = trigger.toLowerCase();
+  
+  // Testnet prototype only supports XLM automated sweeps from the Engine
+  if (asset !== "XLM") return false;
 
   return (
     t.includes("every payment") ||
@@ -37,8 +40,7 @@ function doesPaymentMatchTrigger(trigger: string): boolean {
     t.includes("salary") ||
     t.includes("income") ||
     t.includes("transfer") ||
-    t.includes("xlm") ||
-    t.includes("usdc")
+    t.includes("xlm")
   );
 }
 
@@ -98,7 +100,7 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
 
   // ── Step 4: Match + execute each rule
   for (const rule of rules) {
-    const triggerMatches = doesPaymentMatchTrigger(rule.trigger as string);
+    const triggerMatches = doesPaymentMatchTrigger(rule.trigger as string, asset);
     console.log(`[Processor] 🔍 Rule "${rule.trigger}" | matches: ${triggerMatches}`);
     if (!triggerMatches) continue;
 
