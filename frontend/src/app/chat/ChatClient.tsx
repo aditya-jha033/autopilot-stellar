@@ -746,6 +746,9 @@ export default function ChatClient({ initialRules, hasVaults = false }: { initia
                 <h2 className="text-lg font-semibold text-white mb-2">What should AutoPilot do?</h2>
                 <p className="text-sm text-white/35 max-w-xs mb-8">
                   Describe your financial goal in plain English. I'll turn it into an automation rule.
+                  <span className="block mt-2 text-[11px] text-amber-500/80 bg-amber-500/10 border border-amber-500/20 px-2 py-1.5 rounded-lg">
+                    Note: Automated AI rules currently only support XLM on Testnet. Manual USDC vault transactions work perfectly.
+                  </span>
                 </p>
                 <div className="flex flex-col gap-2 w-full max-w-sm">
                   {SUGGESTIONS.map(s => (
