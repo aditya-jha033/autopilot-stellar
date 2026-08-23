@@ -20,12 +20,12 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navItems = [
-  { href: "/",        icon: LayoutDashboard, label: "Home" },
-  { href: "/chat",    icon: Bot,             label: "AutoPilot" },
-  { href: "/rules",   icon: ListChecks,      label: "Rules" },
-  { href: "/goals",   icon: Target,          label: "Goals" },
-  { href: "/vault",   icon: Vault,           label: "Vault" },
-  { href: "/account", icon: User,            label: "Account" },
+  { href: "/dashboard", icon: LayoutDashboard, label: "Home" },
+  { href: "/chat",      icon: Bot,             label: "AutoPilot" },
+  { href: "/rules",     icon: ListChecks,      label: "Rules" },
+  { href: "/goals",     icon: Target,          label: "Goals" },
+  { href: "/vault",     icon: Vault,           label: "Vault" },
+  { href: "/account",   icon: User,            label: "Account" },
 ];
 
 export default function Sidebar({ publicKey }: { publicKey: string }) {
@@ -56,7 +56,7 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
   const handleDisconnect = async () => {
     setDisconnecting(true);
     await fetch("/api/account/disconnect", { method: "POST" });
-    router.push("/onboarding");
+    router.push("/");
   };
 
   return (
@@ -168,7 +168,7 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
       </aside>
 
       {/* ── Mobile Bottom Nav ── */}
-      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-black/80 backdrop-blur-xl border-t border-white/[0.06] flex md:hidden z-30">
+      <nav className="mobile-nav fixed bottom-0 left-0 right-0 h-16 bg-black/80 backdrop-blur-xl border-t border-white/[0.06] flex md:hidden z-30">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
@@ -176,7 +176,7 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
             <Link key={item.href} href={item.href} className="flex-1">
               <div
                 className={`flex flex-col items-center justify-center h-full gap-1 transition-colors ${
-                  isActive ? "text-blue-400" : "text-white/30"
+                  isActive ? "text-blue-400" : "text-white/40"
                 }`}
               >
                 <Icon className="w-5 h-5" />

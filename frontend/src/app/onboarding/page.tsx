@@ -61,7 +61,7 @@ export default function OnboardingPage() {
       }
 
       // 3. On success, redirect to dashboard
-      router.push("/");
+      router.push("/dashboard");
     } catch (err: any) {
       console.error(err);
       const msg = err.message || "";
@@ -100,7 +100,7 @@ export default function OnboardingPage() {
         throw new Error(friendlyError);
       }
 
-      router.push("/");
+      router.push("/dashboard");
     } catch (err: any) {
       console.error(err);
       if (err.message && err.message.includes("closed")) {
