@@ -41,39 +41,40 @@ export async function checkSpendingLimit(
   weeklyLimitXLM: number | null
 ): Promise<{ allowed: boolean; reason?: string }> {
   const redis = getRedis();
-
-  // No Redis configured — skip limit check (degrade gracefully)
-  if (!redis) {
-    return { allowed: true };
-  }
+  if (!redis) return { allowed: true };
 
   const microAmount = Math.round(amountXLM * MICRO);
 
-  if (dailyLimitXLM !== null) {
-    const dailyMicroLimit = Math.round(dailyLimitXLM * MICRO);
-    const currentDaily = await redis.get<number>(todayKey(userId)) ?? 0;
-    const asNumber = typeof currentDaily === "string" ? parseInt(currentDaily, 10) : currentDaily;
-    if (asNumber + microAmount > dailyMicroLimit) {
-      return {
-        allowed: false,
-        reason: `Daily limit of ${dailyLimitXLM} XLM reached (spent ${asNumber / MICRO} XLM today)`,
-      };
+  try {
+    if (dailyLimitXLM !== null) {
+      const dailyMicroLimit = Math.round(dailyLimitXLM * MICRO);
+      const currentDaily = await redis.get<number>(todayKey(userId)) ?? 0;
+      const asNumber = typeof currentDaily === "string" ? parseInt(currentDaily, 10) : currentDaily;
+      if (asNumber + microAmount > dailyMicroLimit) {
+        return {
+          allowed: false,
+          reason: `Daily limit of ${dailyLimitXLM} XLM reached (spent ${asNumber / MICRO} XLM today)`,
+        };
+      }
     }
-  }
 
-  if (weeklyLimitXLM !== null) {
-    const weeklyMicroLimit = Math.round(weeklyLimitXLM * MICRO);
-    const currentWeekly = await redis.get<number>(weekKey(userId)) ?? 0;
-    const asNumber = typeof currentWeekly === "string" ? parseInt(currentWeekly, 10) : currentWeekly;
-    if (asNumber + microAmount > weeklyMicroLimit) {
-      return {
-        allowed: false,
-        reason: `Weekly limit of ${weeklyLimitXLM} XLM reached (spent ${asNumber / MICRO} XLM this week)`,
-      };
+    if (weeklyLimitXLM !== null) {
+      const weeklyMicroLimit = Math.round(weeklyLimitXLM * MICRO);
+      const currentWeekly = await redis.get<number>(weekKey(userId)) ?? 0;
+      const asNumber = typeof currentWeekly === "string" ? parseInt(currentWeekly, 10) : currentWeekly;
+      if (asNumber + microAmount > weeklyMicroLimit) {
+        return {
+          allowed: false,
+          reason: `Weekly limit of ${weeklyLimitXLM} XLM reached (spent ${asNumber / MICRO} XLM this week)`,
+        };
+      }
     }
-  }
 
-  return { allowed: true };
+    return { allowed: true };
+  } catch (err) {
+    console.warn("[Redis] limit check failed:", err);
+    return { allowed: true };
+  }
 }
 
 /**
@@ -83,21 +84,16 @@ export async function recordSpend(userId: string, amountXLM: number): Promise<vo
   const redis = getRedis();
   if (!redis) return;
 
-  const microAmount = Math.round(amountXLM * MICRO);
-
-  const [dk, wk] = [todayKey(userId), weekKey(userId)];
-
-  // Increment atomically
-  await Promise.all([
-    redis
-      .pipeline()
-      .incrby(dk, microAmount)
-      .expire(dk, 60 * 60 * 25) // 25 hours TTL
-      .exec(),
-    redis
-      .pipeline()
-      .incrby(wk, microAmount)
-      .expire(wk, 60 * 60 * 24 * 8) // 8 days TTL
-      .exec(),
-  ]);
+  try {
+    const microAmount = Math.round(amountXLM * MICRO);
+    const dk = todayKey(userId);
+    const wk = weekKey(userId);
+    
+    await Promise.all([
+      redis.pipeline().incrby(dk, microAmount).expire(dk, 60 * 60 * 25).exec(),
+      redis.pipeline().incrby(wk, microAmount).expire(wk, 60 * 60 * 24 * 8).exec()
+    ]);
+  } catch (err) {
+    console.warn("[Redis] recordSpend failed:", err);
+  }
 }

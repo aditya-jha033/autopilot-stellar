@@ -54,14 +54,15 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
 
   console.log(`[Processor] ⚡ Processing ${amount} ${asset} for ${publicKey.slice(0, 8)}…`);
 
-  // ── Step 1: Deduplicate
+  // ── Step 1: Deduplication check
+  // Check if this incoming payment was already processed
   const existing = await sql`
     SELECT 1 FROM "AutomatedTransaction"
-    WHERE "txHash" = ${paymentHorizonId}
+    WHERE "paymentId" = ${paymentHorizonId}
     LIMIT 1
   `;
   if (existing.length > 0) {
-    console.log(`[Processor] ⏭ Already processed ${paymentHorizonId.slice(0, 16)}… — skipping`);
+    console.log(`[Processor] ⏭ Payment ${paymentHorizonId} already processed`);
     return { skipped: true, reason: "duplicate" };
   }
 
@@ -154,10 +155,10 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
 
       await sql`
         INSERT INTO "AutomatedTransaction"
-          (id, "userId", "ruleId", amount, type, memo, "txHash", "createdAt")
+          (id, "userId", "ruleId", amount, type, memo, "txHash", "paymentId", "createdAt")
         VALUES
           (gen_random_uuid(), ${userId}::uuid, ${rule.id}::uuid,
-           ${execAmount}, ${action}, ${memo}, ${txHash}, NOW())
+           ${execAmount}, ${action}, ${memo}, ${txHash}, ${paymentHorizonId}, NOW())
       `;
 
       // ── Step 8: Increment linked Goal's currentAmount ──────────────
