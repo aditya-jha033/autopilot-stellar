@@ -53,36 +53,41 @@ export default async function authRoutes(server: FastifyInstance) {
       }
     }
 
-    const sql = getDb();
+    try {
+      const sql = getDb();
 
-    // Upsert user — create if new, return existing if not
-    const users = await sql`
-      INSERT INTO "User" (id, "publicKey", "createdAt", "updatedAt")
-      VALUES (gen_random_uuid(), ${publicKey}, NOW(), NOW())
-      ON CONFLICT ("publicKey") DO UPDATE
-        SET "updatedAt" = NOW()
-      RETURNING id, "publicKey"
-    `;
+      // Upsert user — create if new, return existing if not
+      const users = await sql`
+        INSERT INTO "User" (id, "publicKey", "createdAt", "updatedAt")
+        VALUES (gen_random_uuid(), ${publicKey}, NOW(), NOW())
+        ON CONFLICT ("publicKey") DO UPDATE
+          SET "updatedAt" = NOW()
+        RETURNING id, "publicKey"
+      `;
 
-    const user = users[0];
+      const user = users[0];
 
-    // Issue JWT — stored in HttpOnly cookie (7 day expiry)
-    const token = server.jwt.sign(
-      { id: user.id, publicKey: user.publicKey },
-      { expiresIn: "7d" }
-    );
+      // Issue JWT — stored in HttpOnly cookie (7 day expiry)
+      const token = server.jwt.sign(
+        { id: user.id, publicKey: user.publicKey },
+        { expiresIn: "7d" }
+      );
 
-    const isProd = process.env.NODE_ENV === "production";
-    reply.setCookie("session", token, {
-      path: "/",
-      httpOnly: true,
-      secure: isProd,
-      // cross-domain (Vercel frontend ↔ Render backend) requires sameSite "none" + secure
-      sameSite: isProd ? "none" : "strict",
-      maxAge: 60 * 60 * 24 * 7,
-    });
+      const isProd = process.env.NODE_ENV === "production";
+      reply.setCookie("session", token, {
+        path: "/",
+        httpOnly: true,
+        secure: isProd,
+        // cross-domain (Vercel frontend ↔ Render backend) requires sameSite "none" + secure
+        sameSite: isProd ? "none" : "strict",
+        maxAge: 60 * 60 * 24 * 7,
+      });
 
-    return reply.send({ success: true, user: { id: user.id, publicKey: user.publicKey } });
+      return reply.send({ success: true, user: { id: user.id, publicKey: user.publicKey } });
+    } catch (err: any) {
+      request.log.error("Auth login error:", err);
+      return reply.status(500).send({ error: "Internal server error during login", details: err.message });
+    }
   });
 
   /**

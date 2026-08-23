@@ -35,13 +35,17 @@ export async function checkRateLimit(
   const now = Date.now();
   const windowKey = `rl:${key}:${Math.floor(now / (windowSecs * 1000))}`;
 
-  const count = await redis.incr(windowKey);
-  if (count === 1) {
-    await redis.expire(windowKey, windowSecs);
+  try {
+    const count = await redis.incr(windowKey);
+    if (count === 1) {
+      await redis.expire(windowKey, windowSecs);
+    }
+    const allowed = count <= maxRequests;
+    return { allowed, remaining: Math.max(0, maxRequests - count) };
+  } catch (err) {
+    console.error("Redis rate limit error, failing open:", err);
+    return { allowed: true, remaining: maxRequests };
   }
-
-  const allowed = count <= maxRequests;
-  return { allowed, remaining: Math.max(0, maxRequests - count) };
 }
 
 /**
