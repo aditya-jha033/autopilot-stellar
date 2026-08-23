@@ -145,25 +145,25 @@ export default function OnboardingPage() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
           </span>
-          AutoPilot Beta Live on Stellar Testnet
+          Secure Wallet Authentication
         </div>
         
         <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-white leading-tight">
-          Financial automation <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">in plain English.</span>
+          Welcome to <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">AutoPilot.</span>
         </h1>
         
         <p className="text-lg lg:text-xl text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-          Connect your Stellar wallet and tell our AI Coach how you want to save, invest, and manage your funds. We handle the smart contracts and transactions.
+          Your intelligent financial assistant is ready. Connect your Stellar wallet to access your dashboard, manage your automation rules, and track your goals.
         </p>
 
         <div className="grid grid-cols-2 gap-6 pt-4 max-w-lg mx-auto lg:mx-0 text-left">
           <div>
-            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-blue-500"/> Savings Vaults</h3>
-            <p className="text-xs text-white/50">Auto-sweep unused XLM/USDC into dedicated vaults.</p>
+            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-green-500"/> Secure</h3>
+            <p className="text-xs text-white/50">Your keys never leave your wallet.</p>
           </div>
           <div>
-            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-purple-500"/> Goal Tracking</h3>
-            <p className="text-xs text-white/50">Set goals and watch your funds grow with real-time graphs.</p>
+            <h3 className="text-white font-semibold flex items-center gap-2 mb-1"><div className="w-1.5 h-1.5 rounded-full bg-purple-500"/> Seamless</h3>
+            <p className="text-xs text-white/50">One-click login with Freighter or Albedo.</p>
           </div>
         </div>
       </div>
@@ -181,8 +181,8 @@ export default function OnboardingPage() {
               priority
             />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">Connect Wallet</h2>
-          <p className="text-sm text-gray-400">Join the waitlist by connecting.</p>
+          <h2 className="text-2xl font-bold text-white mb-2">Sign In</h2>
+          <p className="text-sm text-gray-400">Authenticate to enter the dashboard.</p>
         </div>
 
       <div className="w-full space-y-4">
