@@ -185,6 +185,11 @@ export default function Sidebar({ publicKey }: { publicKey: string }) {
             </Link>
           );
         })}
+        {/* Theme Toggle for Mobile */}
+        <button onClick={toggleTheme} className="flex-1 flex flex-col items-center justify-center h-full gap-1 text-white/40 hover:text-white/80 transition-colors">
+          {isLightMode ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+          <span className="text-[9px] font-medium">Theme</span>
+        </button>
       </nav>
     </>
   );
