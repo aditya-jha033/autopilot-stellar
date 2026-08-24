@@ -50,11 +50,17 @@ export default function OnboardingPage() {
         body: JSON.stringify({ publicKey }),
       });
 
-      const data = await response.json();
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = { error: "Backend is temporarily unavailable or returned an invalid response." };
+      }
 
       if (!response.ok) {
         // Sanitize raw server errors — never show "Internal Server Error" to user
-        const rawError = data.error || "";
+        const rawError = data?.error || "";
         const friendlyError = rawError.toLowerCase().includes("internal server")
           ? "Backend is temporarily unavailable. Please try again in a moment."
           : rawError || "Authentication failed.";
@@ -91,10 +97,16 @@ export default function OnboardingPage() {
         body: JSON.stringify({ publicKey }),
       });
 
-      const data = await response.json();
+      let data;
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.includes("application/json")) {
+        data = await response.json();
+      } else {
+        data = { error: "Backend is temporarily unavailable or returned an invalid response." };
+      }
 
       if (!response.ok) {
-        const rawError = data.error || "";
+        const rawError = data?.error || "";
         const friendlyError = rawError.toLowerCase().includes("internal server")
           ? "Backend is temporarily unavailable. Please try again in a moment."
           : rawError || "Authentication failed.";
