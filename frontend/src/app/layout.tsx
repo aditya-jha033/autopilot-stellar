@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { Analytics } from "@vercel/analytics/next";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 // Using the `geist` npm package instead of next/font/google
@@ -32,6 +33,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col text-gray-900 tracking-tight bg-black">
         {children}
+        <Toaster theme="dark" position="bottom-right" />
         <Analytics />
       </body>
     </html>

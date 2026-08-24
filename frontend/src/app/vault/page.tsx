@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import {
   Vault,
   TrendingUp,
@@ -114,6 +115,7 @@ function WithdrawModal({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      toast.success(`Successfully withdrew ${amount} ${asset.toUpperCase()}`);
       onSuccess();
       onClose();
     } catch (e: any) {
@@ -450,6 +452,7 @@ function CreateVaultCard({
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
+      toast.success(`${meta.label} created successfully!`);
       setSuccess(`${meta.label} created! Tx: ${data.fundTxHash?.slice(0, 16)}…`);
       setTimeout(onCreate, 1500);
     } catch (e: any) {
