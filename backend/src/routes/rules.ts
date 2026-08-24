@@ -19,6 +19,10 @@ export default async function rulesRoutes(server: FastifyInstance) {
     const body = request.body as any;
     const sql = getDb();
 
+    if (body.isPercentage && body.amount > 100) {
+      return reply.status(400).send({ error: "Percentage amount cannot exceed 100%" });
+    }
+
     const result = await sql`
       INSERT INTO "Rule" (
         id, "userId", trigger, action, amount, "isPercentage", limits, status, memo, description, "createdAt", "updatedAt"
@@ -49,9 +53,17 @@ export default async function rulesRoutes(server: FastifyInstance) {
     const sql = getDb();
 
     // Verify ownership
-    const rules = await sql`SELECT id FROM "Rule" WHERE id = ${id}::uuid AND "userId" = ${request.user!.id}::uuid`;
+    const rules = await sql`SELECT id, amount, "isPercentage" FROM "Rule" WHERE id = ${id}::uuid AND "userId" = ${request.user!.id}::uuid`;
     if (rules.length === 0) {
       return reply.status(404).send({ error: "Rule not found" });
+    }
+
+    const currentRule = rules[0];
+    const newIsPercentage = body.isPercentage !== undefined ? body.isPercentage : currentRule.isPercentage;
+    const newAmount = body.amount !== undefined ? body.amount : currentRule.amount;
+
+    if (newIsPercentage && newAmount > 100) {
+      return reply.status(400).send({ error: "Percentage amount cannot exceed 100%" });
     }
 
     const result = await sql`
