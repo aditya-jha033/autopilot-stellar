@@ -119,10 +119,13 @@ body.theme-light textarea::placeholder {
   color: var(--text-muted) !important;
 }
 
-/* bg-black & bg-[#050505] remapping in light mode */
+/* bg-black & specific dark hex remapping in light mode */
 body.theme-light .bg-black     { background-color: var(--background)  !important; }
 body.theme-light .bg-\[\#050505\] { background-color: var(--sidebar-bg) !important; }
 body.theme-light .bg-\[\#0a0a0a\] { background-color: #f0f0f0          !important; }
+body.theme-light .bg-\[\#0a0a0f\] { background-color: #f4f5f7          !important; }
+body.theme-light .bg-\[\#0d0d14\] { background-color: #ffffff          !important; }
+body.theme-light .bg-\[\#111116\] { background-color: #f8f9fa          !important; }
 
 /* text-white remapping */
 body.theme-light .text-white { color: var(--text-primary) !important; }
