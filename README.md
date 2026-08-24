@@ -88,6 +88,30 @@ As part of our continuous improvement, we collected feedback from early beta tes
 | Rana Dutta | `GA7A4OHK55D3YRLLQJLIM7Y6R3TXGT45DPSHVSWRXLSUIDJSBTBTPWAW` | Testnet | 4 | 4 | 4 | Easy creation of profile in this app | alll fesatures are good especailly XLM and both USDC. | When edtiting rules there is only for XLM but not for USDC. | Yes | [`fbf1ae1`](https://github.com/aditya-jha033/autopilot-stellar/commit/fbf1ae1) |
 | Titash Sen | `GC5J6BN4BXXNE6DR6OHJSRH4WH4EZEFIO4AM2KRNFZEA5DCI3QFKODKA` | Testnet | 4 | 5 | 3 | UI UX is good | Product is good | NA | Yes | |
 | Soumalya Sen | `GAJUWETQPUT4RH6BHWDQOMC6EPTMMW4Q3IW46KSMCZLN7Y25NCLQBOV3` | Testnet | 3 | 4 | 4 | Seperate Vault for savings and investment | Everything is rood but I opened it in mobile. | Mobile bottom nav overlaps page content checkthat and fix it | Yes | [`cb5a12b`](https://github.com/aditya-jha033/autopilot-stellar/commit/cb5a12b) |
+| Debris Maity | `GC23LEPSSBJL4VJK6LK5RIRRX2ZKJ3OTVXHJT6HSWPMZ4JJDXE3ZRUPE` | Testnet | 4 | 5 | 4 | all the features are good | product idea is good a walkthough guide for begginers is weel appreciated if added later. | NA | Yes | [`ad145cf`](https://github.com/aditya-jha033/autopilot-stellar/commit/ad145cf) |
+| Tapanoy Biswas | `GDYF2MPWHTXE63DVLGG3H4JKTCBQ24OZAMGMLBMYY3IEIJLOCVD5CZDU` | Testnet | 4 | 4 | 4 | Features are all ok | Product is good I love how in the UAtopilot edit option is there to help user and also some default messages. | No such found | Yes | |
+| Udity Maity | `GDFEYX5Q7UT4ZUREVHPULKYD6C3EKWQDTJY76OXYWTRTUE7PKUSKWJZG` | Testnet | 3 | 3 | 4 | Just love its ease onboarding simple click to create an account | Its easy to use everything is simplfied and over trasnection are smooth and verified on chain . | No | Yes | |
+| Vikshat Nath | `GBJA4Z6IXQLVZWMM3U7C7PFRFHWO7CZ3S62SPC6TX2NLV4XS2MQHBC4F` | Testnet | 5 | 3 | 5 | Autopilot Chatting | Great Product | White theme is something needed to looked upon other than that its fine | Yes | [`d3abf2d`](https://github.com/aditya-jha033/autopilot-stellar/commit/d3abf2d) |
+| Kashvi Kumari | `GBYIJRF5CW4QG3XBETDBCNS3K7R65CEDNB4J3QBWKEIPVWMU6MKNIPW6` | Testnet | 5 | 4 | 5 | AI Chat | Amazed by chatting speed of AI | No such found | Yes | |
+| Ritwik Jain | `GAMQZW6Q5OYO7KHIMTS5DQQ7CFN5PIAL4CJWNLJ5M4P4X72BQSDEQDPG` | Testnet | 5 | 3 | 4 | saving vault | everything is clean | nothing | Yes | |
+| Gopal Dutta | `GDWXLJIZDOY5THKEGWKZXD245SU4BVJSVJ63LI4PAUY4KMR4JPRCZFBP` | Testnet | 4 | 4 | 4 | Goal section | app is nice idea is great. Goal is good intiative for planning for needs | no everything is smooth | Yes | |
+| Sadidul Islam | `GAJ7DRJCSIJDLH4JJYXQ4MWG5GHSK56AYCQUGKKW4OFYXGDAH3G2FXRN` | Testnet | 5 | 4 | 3 | UI is very user friendly and fast loading | Product is very good. But I would liek to sugges a notification panel on sucessful trasnection on money deduction / receiving. | No just a notification panel will be a small sugegstion from my end. | Yes | [`b6815df`](https://github.com/aditya-jha033/autopilot-stellar/commit/b6815df) |
+| Aditya Thakur | `GCSHXA2QD4RS35O2D7OCIRUT6ONNHDWN42YAFTQUT6NWGKGCUGBASQNQ` | Testnet | 5 | 5 | 4 | Trasnection speed is absoutely fast | Product Idea is great! Needed a product like this in market. | No everything is smoothly working for me | Yes | |
+| Sunil Mandal | `GAUVTXZPGQSA3AILP4WLQTDY2WTG5SE7PY4VN3CFNT6HMT2Z7VMYAASS` | Testnet | 4 | 4 | 3 | Transperency | Its amazing | In the vault section the spending limits adjustment needed to be checked once. | Yes | [`f71e8b7`](https://github.com/aditya-jha033/autopilot-stellar/commit/f71e8b7) |
+| Gurpreet Singh | `GBA6F4HQIJ6UY7WXUH2KRMHYIVX57MRFWZP7QS7EB267MYCKJARMH6UP` | Testnet | 5 | 4 | 4 | Autopilot chat experience is very good. | Autopilot as name suugest carries the value of this product actually | All fine for me | Yes | |
+| Ganesh Ray | `GAREG55YYVOTXCA6MK3RKMFNJ2VPNIET3VIEFFJTCQAVFUHFI6CDVGPN` | Testnet | 4 | 5 | 4 | Goal features is good easy to progress. | Product is nice autopilot AI is fast and responsive in a way. | No | Yes | |
+| Sujit Majhi | `GDAUYKURO274AJDEBF5JZDUP5RDBQM6PGUSRVZ7LVSPU25HMBRUQRPY6` | Testnet | 4 | 4 | 5 | Everything felt smooth transition and UI is good | Everything is good I tied to play with Autopilot several times | Autopilot needed to be resticted I tried to give 120% save on each payment it accepted it need a fix of this type of explicit chats. Other than that everything is fine. | Yes | [`114dfe8`](https://github.com/aditya-jha033/autopilot-stellar/commit/114dfe8) |
+| Ajit Kumar Maity | `GALN6TPIOE5NAFYA3MEE4L2KPXM7CKHJRSEWOWMBGQ6KYCU7U5UMCRKS` | Testnet | 5 | 4 | 5 | Onboarding experience is smooth | I like the product its using AI chat native english to make saving protocol its amazing. | nothing | Yes | |
+| Dipti Jain | `GDJGF2DQY4Q3RZY3OYAYGETO3SGRKY3KNRSHLZTKLQ7WUIAX5RJXIM3X` | Testnet | 5 | 5 | 5 | Autopilot AI chatting is good | product is nice | I think in the landing page a contact section is missing please add that as it is fintech so its important for a good customer support. | Maybe | [`bd8fd67`](https://github.com/aditya-jha033/autopilot-stellar/commit/bd8fd67) |
+| Satavidha Mahato | `GDBXA3NAGRLTYP7NI6EIS4QT273UUWHZYN4KCO7JT2E5VYYBSG2CQFYJ` | Testnet | 5 | 4 | 5 | Everything is clean and well depicted | Good app great initiative love the overall transection feeling. | No | Yes | |
+| Jogesh Das | `GDSHPINMELPVJEFCBVO5ZQYYB2CC7YQPGM2L3UPOIJLROO5MAMIIYO7X` | Testnet | 5 | 4 | 4 | autopilot chatting feature | PRoduct is good it support USDC that's very nice of it. | Everything is alright | Yes | |
+| Shamol Dutta | `GC3AS7YUTNG5V6OBWIEDDWTFPVZT3DFAYTXUWEYJTXTNXPCE4TVO4Q6T` | Testnet | 5 | 4 | 5 | Keeping the Goal section and wiring it to saving valut is axtually crazy. | Love it. Not much hectic simple and all useful feature only product. | UI for light theme have scoper for improvement. | Yes | [`d3abf2d`](https://github.com/aditya-jha033/autopilot-stellar/commit/d3abf2d) |
+| Ritam Dastidar | `GBIAUXOC7DQVN4DK2PU3KUDDRP4WP3IKXYPETELZLQGKJBTNY4QYKQDJ` | Testnet | 5 | 5 | 5 | Ladnign page is clear authentication is hassle free for buth web and mobile. | Its good product AI and Web3 | No such | Yes | |
+| Souradip Sarkar | `GDNWLN3JLOCPWWL3WNXKN5PNPHDCJVJR2337VCK3NFK3HCXIDLU2QERC` | Testnet | 5 | 5 | 5 | Autopilot chat and vault section | Product is very good love to use it when it comes live in main net. | No scope found | Yes | |
+| Syndhiya Dhali | `GAS6ZE6F6JD7VKPXHAHFIJ4WXEQHH5WEEKBNNMZSN4T3IPWJQWGNDP6R` | Testnet | 5 | 4 | 5 | The home section portfolio is good. | product is good idea is good and the trasnition speed is amazing | No bugs | Yes | |
+| Madhav Suren | `GB3G5ZU7BL3PXWZIOJIETBF6FROFEMZVJJVRUUBTZVNRMLJAQPNPLK5Q` | Testnet | 5 | 4 | 5 | UI smoothness and documentation | Product is great and it will run for long if implementated and sclaed properly | No | Yes | |
+| Usman Ali | `GC5TRX7OLZP57WKSLIACKAXO7YGHR4NI4BSS3SR3NQDMJL3JDSF7WZJ4` | Testnet | 5 | 5 | 5 | Clean UI responsive and good transection speed. | Everything is fine and all aree working | I didn't get any errors. | Yes | |
+| Priya Mandal | `GB6TDEABOPVRD5P4BESJ3SD4J2XMJ3NQF6RIND77ZUSAJLRJSULLSFQX` | Testnet | 5 | 4 | 5 | Autopilot chatting is very fast and smooth | Everything seems alright and working smoothly | No | Yes | |
 
 ---
 
@@ -136,6 +160,18 @@ As part of our continuous improvement, we collected feedback from early beta tes
 ### 11. Analytics & Monitoring
 ![Analytics](assets/screenshots/analytics.png)
 *Vercel Analytics integrated directly into the application to monitor real-time traffic, web vitals, and user engagement.*
+
+### 12. Landing Page
+![Landing Page](assets/screenshots/landing-page.png)
+*A sleek, high-conversion landing page introducing users to AI-powered Web3 automation with live interactive elements.*
+
+### 13. Documentation Page
+![Documentation Page](assets/screenshots/documentation-page.png)
+*Comprehensive documentation and walkthrough guides to help beginners understand and set up AutoPilot features quickly.*
+
+### 14. Transaction Audit
+![Transaction Audit](assets/screenshots/autopilot-transection-audit.png)
+*Detailed transparency into automated background actions, ensuring users have full visibility over AI-driven transactions.*
 
 ---
 
