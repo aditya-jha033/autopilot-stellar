@@ -34,10 +34,11 @@ const fadeUp: Variants = {
 function Navbar() {
   const [open, setOpen] = useState(false);
   const links = [
-    { label: "Features",   href: "#features" },
+    { label: "Features",    href: "#features" },
     { label: "How it works", href: "#how" },
-    { label: "Use cases",  href: "#usecases" },
-    { label: "Contact",    href: "#contact" },
+    { label: "Use cases",   href: "#usecases" },
+    { label: "Docs",        href: "/docs" },
+    { label: "Contact",     href: "#contact" },
   ];
 
   return (
