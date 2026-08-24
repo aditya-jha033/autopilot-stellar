@@ -417,36 +417,36 @@ function CTABanner() {
 // ── Contact ──────────────────────────────────────────────────────────────────
 function Contact() {
   return (
-    <section id="contact" className="py-20 border-t border-white/[0.05]">
-      <div className="max-w-6xl mx-auto px-5 text-center">
+    <section id="contact" className="py-24 border-t border-white/[0.05] relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-blue-500/[0.02]" />
+      <div className="max-w-4xl mx-auto px-5 text-center relative z-10">
         <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <p className="text-white/40 text-sm font-semibold tracking-widest uppercase mb-3">Contact</p>
-          <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">Have questions or feedback?</h2>
-          <p className="text-white/40 max-w-lg mx-auto mb-8">
-            We&apos;d love to hear from you. Reach out via GitHub or Twitter, or drop feedback directly from inside the app.
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-500/10 border border-blue-500/20 mb-6">
+            <MessageCircle className="w-5 h-5 text-blue-400" />
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">24/7 Customer Support</h2>
+          <p className="text-white/50 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+            As a decentralized financial platform, we believe in complete transparency and dedicated user support.
+            Whether you have questions about vault security, AI rules, or limits, our team is here to help.
           </p>
-          <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
             <a
-              href="https://github.com/aditya-jha033/autopilot-stellar"
-              target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.05] hover:bg-white/[0.10] border border-white/[0.08] text-white/70 hover:text-white rounded-xl transition-all text-sm"
+              href="mailto:support@autopilot.finance"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 bg-blue-500 hover:bg-blue-600 text-white rounded-xl font-medium transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)]"
             >
-              <ExternalLink className="w-4 h-4" /> View on GitHub
+              Email Support Team
             </a>
             <a
-              href="https://twitter.com"
+              href="https://github.com/aditya-jha033/autopilot-stellar/issues"
               target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.05] hover:bg-white/[0.10] border border-white/[0.08] text-white/70 hover:text-white rounded-xl transition-all text-sm"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3.5 bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] text-white/80 hover:text-white rounded-xl transition-all"
             >
-              <MessageCircle className="w-4 h-4" /> Follow updates
+              <ExternalLink className="w-4 h-4" /> Report an Issue
             </a>
-            <a
-              href="https://autopilot-stellar-mauve.vercel.app/"
-              target="_blank" rel="noopener noreferrer"
-              className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.05] hover:bg-white/[0.10] border border-white/[0.08] text-white/70 hover:text-white rounded-xl transition-all text-sm"
-            >
-              <Globe className="w-4 h-4" /> Live app
-            </a>
+          </div>
+          <div className="mt-12 flex flex-wrap justify-center gap-6 text-sm text-white/30">
+            <span className="flex items-center gap-1.5"><Globe className="w-4 h-4" /> Available Worldwide</span>
+            <span className="flex items-center gap-1.5"><Shield className="w-4 h-4" /> Secure Comms</span>
           </div>
         </motion.div>
       </div>
