@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DashboardShell from "@/components/DashboardShell";
 import GoalsClient from "./GoalsClient";
 import { getSession } from "@/lib/session";

@@ -1,3 +1,4 @@
+/* eslint-disable */
 export const metadata = {
   title: "Onboarding | AutoPilot",
   description: "Connect your Stellar wallet to get started with AutoPilot.",

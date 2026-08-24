@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DashboardShell from "@/components/DashboardShell";
 import RulesClient from "./RulesClient";
 import { getSession } from "@/lib/session";

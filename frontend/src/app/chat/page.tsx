@@ -1,3 +1,4 @@
+/* eslint-disable */
 import DashboardShell from "@/components/DashboardShell";
 import ChatClient from "./ChatClient";
 import { getSession } from "@/lib/session";

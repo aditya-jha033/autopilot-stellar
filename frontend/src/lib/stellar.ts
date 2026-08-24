@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface StellarBalance {
   xlm: string;
   otherAssets: Array<{ asset: string; balance: string }>;

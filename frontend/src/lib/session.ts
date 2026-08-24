@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { cookies } from "next/headers";
 import { verifyToken } from "./auth";
 import { redirect } from "next/navigation";

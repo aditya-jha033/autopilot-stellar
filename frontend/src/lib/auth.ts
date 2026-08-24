@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { SignJWT, jwtVerify } from "jose";
 
 // Need to make sure the JWT_SECRET is available

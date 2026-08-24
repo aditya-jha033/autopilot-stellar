@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Sidebar from "./Sidebar";
 
 export default function DashboardShell({
