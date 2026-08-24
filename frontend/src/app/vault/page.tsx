@@ -4,12 +4,14 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import Link from "next/link";
 import {
   Vault,
   TrendingUp,
   PiggyBank,
   Plus,
   ArrowDownLeft,
+  ArrowUpRight,
   RefreshCw,
   ExternalLink,
   Loader2,
@@ -355,29 +357,21 @@ function VaultCard({
           )}
         </div>
 
-        {/* Spending Limits (Saurav Kar Feedback) */}
         <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-700/50 backdrop-blur-md relative overflow-hidden group mb-4">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <h3 className="text-white font-medium mb-4 flex items-center gap-2 text-sm">
+          <h3 className="text-white font-medium mb-2 flex items-center gap-2 text-sm">
             <div className="w-6 h-6 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-indigo-400"><path d="M12 2v20"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
             </div>
             Spending Limits
           </h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-[10px] text-white/40 uppercase tracking-wider mb-2">Daily (USDC)</label>
-              <input type="number" placeholder="e.g. 50" className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all" />
-            </div>
-            <div>
-              <label className="block text-[10px] text-white/40 uppercase tracking-wider mb-2">Weekly (USDC)</label>
-              <input type="number" placeholder="e.g. 300" className="w-full bg-black/40 border border-white/10 rounded-xl px-3 py-1.5 text-white text-xs focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all" />
-            </div>
-          </div>
-          <div className="mt-3 flex justify-end">
-            <button className="text-[10px] uppercase font-bold tracking-wider bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-300 px-3 py-1.5 rounded-lg transition-colors border border-indigo-500/30">
-              Save Limits
-            </button>
+          <p className="text-xs text-white/40 mb-4">
+            Protect your funds by configuring maximum daily and weekly withdrawal limits.
+          </p>
+          <div className="flex justify-end">
+            <Link href="/account" className="text-[10px] uppercase font-bold tracking-wider bg-indigo-500/20 hover:bg-indigo-500/40 text-indigo-300 px-3 py-1.5 rounded-lg transition-colors border border-indigo-500/30 inline-flex items-center gap-1.5">
+              Configure Limits <ArrowUpRight className="w-3 h-3" />
+            </Link>
           </div>
         </div>
 

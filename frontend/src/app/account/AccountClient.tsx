@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -221,11 +222,23 @@ function LimitRow({
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
-    setSaving(true);
     const parsed = input.trim() === "" ? null : parseFloat(input);
-    await onSave(isNaN(parsed as number) ? null : parsed);
-    setSaving(false);
-    setEditing(false);
+    
+    if (parsed !== null && (isNaN(parsed) || parsed < 0)) {
+      toast.error("Please enter a valid positive number");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await onSave(parsed);
+      toast.success(`${label} updated successfully`);
+      setEditing(false);
+    } catch (e: any) {
+      toast.error(e.message || "Failed to update limit");
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
