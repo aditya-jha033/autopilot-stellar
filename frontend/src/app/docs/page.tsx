@@ -121,7 +121,7 @@ export default function DocsPage() {
         <motion.div variants={fadeUp} className="flex items-center gap-2 mb-6">
           <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
             <Star className="w-3 h-3" />
-            Stellar Hackathon 2024
+            Pwered by Stellar & Groq AI
           </span>
         </motion.div>
 
