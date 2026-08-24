@@ -132,7 +132,7 @@ export default function ApiPage() {
         </p>
         <div className="flex flex-wrap gap-2 mb-8">
           {[
-            { label: "Base URL (Prod)", val: "https://autopilot-backend.onrender.com" },
+            { label: "Base URL (Prod)", val: "https://autopilot-stellar-mauve-rqs0.onrender.com" },
             { label: "Base URL (Local)", val: "http://localhost:3001" },
             { label: "Auth", val: "JWT (httpOnly Cookie)" },
           ].map(({ label, val }) => (

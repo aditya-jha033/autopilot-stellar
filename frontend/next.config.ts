@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
-const BACKEND_URL = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001").replace(/\/$/, "");
+const isProd = process.env.NODE_ENV === "production";
+const BACKEND_URL = (
+  process.env.NEXT_PUBLIC_API_URL ??
+  (isProd ? "https://autopilot-stellar-mauve-rqs0.onrender.com" : "http://localhost:3001")
+).replace(/\/$/, "");
 
 const nextConfig: NextConfig = {
   async rewrites() {
