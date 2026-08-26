@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
   <img src="frontend/public/logo.png" alt="AutoPilot Logo" width="150" />
   <h1>AutoPilot</h1>
   <p>AI-Powered Financial Automation on the Stellar Network</p>
@@ -19,10 +19,9 @@
   </p>
 </div>
 
-- **Live Demo:** [https://autopilot-stellar-mauve.vercel.app/](https://autopilot-stellar-mauve.vercel.app/) *(Live AutoPilot Application)*
-- **Documentation:** [https://autopilot-stellar-docs.vercel.app/](https://autopilot-stellar-docs.vercel.app/) *(Official AutoPilot Documentation)*
-- **GitHub Repository:** [https://github.com/aditya-jha033/autopilot-stellar](https://github.com/aditya-jha033/autopilot-stellar)
-- **Demo Video:** [Watch the AutoPilot MVP Demo](https://youtu.be/OG6kS41sLGg)
+<div align="center">
+  <h3><strong><a href="https://autopilot-stellar-mauve.vercel.app/">🚀 Live Deployment (Vercel)</a></strong> | <strong><a href="https://autopilot-stellar-mauve.vercel.app/docs"> 📖 Documentation</a></strong> | <strong><a href="https://youtu.be/OG6kS41sLGg"> ▶️ Demo Video</a></strong></h3>
+</div>
 
 ---
 
@@ -31,7 +30,7 @@
 
 ---
 
-## ðŸ’¡ The Problem & Solution
+## 💡 The Problem & Solution
 
 ### The Problem
 Managing personal finances, specifically consistently saving and investing, is a manual, emotional, and often forgotten task. Traditional banking apps offer basic "auto-transfers" but lack dynamic intelligence (e.g., "save 10% only if I receive a payment over $50").
@@ -49,7 +48,7 @@ Imagine a freelancer who gets paid sporadically in XLM or USDC on Stellar. Inste
 
 ---
 
-## ðŸ“ User Feedback & Survey
+## 📝 User Feedback & Survey
 
 As part of our continuous improvement, we collected feedback from early beta testers. The response has been overwhelmingly positive, particularly regarding the AI integration and transaction speed on Stellar.
 
@@ -121,7 +120,7 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 ---
 
-## ðŸ“¸ Application Screenshots
+## 📸 Application Screenshots
 
 ### 1. Onboarding Screen
 ![Onboarding](assets/screenshots/onboarding.png)
@@ -181,7 +180,7 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 ---
 
-## ðŸ› ï¸ Tech Stack
+## 🛠️ Tech Stack
 
 | Category | Technology | Description |
 | :--- | :--- | :--- |
@@ -194,7 +193,7 @@ As part of our continuous improvement, we collected feedback from early beta tes
 
 ---
 
-## â›“ï¸ Blockchain Details for Judges
+## ⛓️ Blockchain Details for Judges
 
 AutoPilot utilizes the Stellar Network's native features to create a seamless, non-custodial-feeling automation experience. 
 
@@ -208,32 +207,32 @@ This project leverages Stellar's highly efficient native operations (Account Cre
 
 ---
 
-## ðŸ“‚ File Architecture
+## 📂 File Architecture
 
 ```text
 autopilot/
-â”œâ”€â”€ backend/                   # Node.js Fastify API server
-â”‚   â””â”€â”€ src/                   # Backend source code
-â”‚       â”œâ”€â”€ engine/            # Background automation execution logic
-â”‚       â”œâ”€â”€ lib/               # Database and utility functions
-â”‚       â”œâ”€â”€ middleware/        # JWT auth and security guards
-â”‚       â”œâ”€â”€ migrations/        # PostgreSQL schema setup scripts
-â”‚       â”œâ”€â”€ routes/            # API endpoints (goals, rules, chat)
-â”‚       â”œâ”€â”€ scripts/           # Testing and CLI setup tools
-â”‚       â”œâ”€â”€ stellar/           # Horizon API blockchain integration
-â”‚       â””â”€â”€ server.ts          # Main Fastify server entry point
-â””â”€â”€ frontend/                  # Next.js React web application
-    â””â”€â”€ src/                   # Frontend source code
-        â”œâ”€â”€ app/               # Next.js App Router pages
-        â”‚   â”œâ”€â”€ chat/          # AI Coach interface & logic
-        â”‚   â”œâ”€â”€ goals/         # Financial goal tracking UI
-        â”‚   â””â”€â”€ onboarding/    # First-time user wallet setup
-        â””â”€â”€ components/        # Reusable React UI elements
+├── backend/                   # Node.js Fastify API server
+│   └── src/                   # Backend source code
+│       ├── engine/            # Background automation execution logic
+│       ├── lib/               # Database and utility functions
+│       ├── middleware/        # JWT auth and security guards
+│       ├── migrations/        # PostgreSQL schema setup scripts
+│       ├── routes/            # API endpoints (goals, rules, chat)
+│       ├── scripts/           # Testing and CLI setup tools
+│       ├── stellar/           # Horizon API blockchain integration
+│       └── server.ts          # Main Fastify server entry point
+└── frontend/                  # Next.js React web application
+    └── src/                   # Frontend source code
+        ├── app/               # Next.js App Router pages
+        │   ├── chat/          # AI Coach interface & logic
+        │   ├── goals/         # Financial goal tracking UI
+        │   └── onboarding/    # First-time user wallet setup
+        └── components/        # Reusable React UI elements
 ```
 
 ---
 
-## ðŸ—ï¸ Project Architecture
+## 🏗️ Project Architecture
 
 ```mermaid
 flowchart LR
@@ -251,7 +250,7 @@ flowchart LR
 
 ---
 
-## ðŸ‘¤ User Side Flow
+## 👤 User Side Flow
 
 ```mermaid
 sequenceDiagram
@@ -274,7 +273,7 @@ sequenceDiagram
 
 ---
 
-## âœ¨ Features
+## ✨ Features
 
 | Feature | Description |
 | :--- | :--- |
@@ -287,7 +286,7 @@ sequenceDiagram
 
 ---
 
-## ðŸ“œ Blockchain Deployment & Verification
+## 📜 Blockchain Deployment & Verification
 
 For hackathon judges and auditors, you can verify our deployment on the Stellar Testnet using the following credentials.
 
@@ -299,7 +298,7 @@ For hackathon judges and auditors, you can verify our deployment on the Stellar 
 
 ---
 
-## ðŸ›‘ Error Handling
+## 🛑 Error Handling
 
 | Scenario | How AutoPilot Handles It |
 | :--- | :--- |
@@ -310,7 +309,7 @@ For hackathon judges and auditors, you can verify our deployment on the Stellar 
 
 ---
 
-## ðŸ§ª Testing
+## 🧪 Testing
 
 <div align="center">
   <img src="assets/tests/test-passed.png" alt="Test Results" />
@@ -333,7 +332,7 @@ The E2E script simulates a full user lifecycle:
 
 ---
 
-## ðŸš€ Setup Guide
+## 🚀 Setup Guide
 
 ### 1. Clone the Repository
 ```bash
@@ -383,14 +382,14 @@ Visit `http://localhost:3000` to interact with AutoPilot!
 
 ---
 
-## ðŸš€ Phase 2: Mainnet Deployment & Future Roadmap
+## 🚀 Phase 2: Mainnet Deployment & Future Roadmap
 
 As we transition from the hackathon phase, our immediate next step is the **Phase 2 Mainnet Deployment**. Deploying AutoPilot to the live Stellar Mainnet will allow real users to automate their actual financial flows with real XLM and USDC. This phase will involve a comprehensive security audit of our AES-256-GCM vault encryption, the introduction of multi-signature (multisig) support for enhanced vault security, and the integration of a premium subscription model using native Stellar payments. By bridging AI-driven automation with real-world liquidity on the Stellar Mainnet, AutoPilot is positioned to become a vital primitive for personal finance management in the Web3 ecosystem.
 
 ---
 
-## ðŸ™ Thank You!
+## 🙏 Thank You!
 
 Thanks for checking out AutoPilot! We built this to demonstrate the power of combining modern AI with the speed of the Stellar network. 
 
-If you found this project interesting or helpful, **please consider giving it a â­ on GitHub!**
+If you found this project interesting or helpful, **please consider giving it a ⭐ on GitHub!**
