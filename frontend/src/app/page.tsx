@@ -1,4 +1,4 @@
-/* eslint-disable */
+﻿/* eslint-disable */
 "use client";
 
 import Link from "next/link";
@@ -25,20 +25,20 @@ import {
   Globe,
 } from "lucide-react";
 
-// ── Fade-in helper ──────────────────────────────────────────────────────────
+// â”€â”€ Fade-in helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
-// ── Navbar ──────────────────────────────────────────────────────────────────
+// â”€â”€ Navbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Navbar() {
   const [open, setOpen] = useState(false);
   const links = [
     { label: "Features",    href: "#features" },
     { label: "How it works", href: "#how" },
     { label: "Use cases",   href: "#usecases" },
-    { label: "Docs",        href: "https://autopilot-docs.vercel.app" },
+    { label: "Docs",        href: "https://autopilot-stellar-docs.vercel.app" },
     { label: "Contact",     href: "#contact" },
   ];
 
@@ -108,7 +108,7 @@ function Navbar() {
   );
 }
 
-// ── Hero ────────────────────────────────────────────────────────────────────
+// â”€â”€ Hero â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Hero() {
   return (
     <section className="relative pt-32 pb-24 md:pt-40 md:pb-32 overflow-hidden">
@@ -125,7 +125,7 @@ function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
           </span>
-          Live on Stellar Testnet · Open Beta
+          Live on Stellar Testnet Â· Open Beta
         </motion.div>
 
         <motion.h1
@@ -143,7 +143,7 @@ function Hero() {
           className="text-lg md:text-xl text-white/50 max-w-2xl mx-auto leading-relaxed mb-10"
         >
           Connect your Stellar wallet and describe your savings rules in natural language.
-          AutoPilot&apos;s AI engine handles smart contract automation, vaults, and real-time execution — no code needed.
+          AutoPilot&apos;s AI engine handles smart contract automation, vaults, and real-time execution â€” no code needed.
         </motion.p>
 
         <motion.div variants={fadeUp} initial="hidden" animate="visible" className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -182,25 +182,25 @@ function Hero() {
   );
 }
 
-// ── Features ────────────────────────────────────────────────────────────────
+// â”€â”€ Features â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const features = [
   {
     icon: Bot,
     color: "blue",
     title: "AI-Powered Rule Creation",
-    desc: "Just tell AutoPilot what you want in plain English — &lsquo;Save 10% of every payment I receive.&rsquo; Our AI parses your intent and deploys the automation rule instantly.",
+    desc: "Just tell AutoPilot what you want in plain English â€” &lsquo;Save 10% of every payment I receive.&rsquo; Our AI parses your intent and deploys the automation rule instantly.",
   },
   {
     icon: Vault,
     color: "emerald",
     title: "Dedicated Savings Vaults",
-    desc: "Funds are swept into isolated Stellar accounts for savings and investments. Completely separate from your main wallet — your goals stay safe.",
+    desc: "Funds are swept into isolated Stellar accounts for savings and investments. Completely separate from your main wallet â€” your goals stay safe.",
   },
   {
     icon: Zap,
     color: "amber",
     title: "Real-Time Execution",
-    desc: "AutoPilot watches your Stellar wallet 24/7 via the Horizon stream. Rules execute within seconds of a trigger — no cron jobs, no delays.",
+    desc: "AutoPilot watches your Stellar wallet 24/7 via the Horizon stream. Rules execute within seconds of a trigger â€” no cron jobs, no delays.",
   },
   {
     icon: Shield,
@@ -239,7 +239,7 @@ function Features() {
           <p className="text-blue-400 text-sm font-semibold tracking-widest uppercase mb-3">Features</p>
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">Everything you need,<br />nothing you don&apos;t.</h2>
           <p className="text-white/40 mt-4 max-w-xl mx-auto text-lg">
-            A complete automation layer for your Stellar wallet — built for real users, not just developers.
+            A complete automation layer for your Stellar wallet â€” built for real users, not just developers.
           </p>
         </motion.div>
 
@@ -266,12 +266,12 @@ function Features() {
   );
 }
 
-// ── How it works ─────────────────────────────────────────────────────────────
+// â”€â”€ How it works â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const steps = [
   {
     step: "01",
     title: "Connect your wallet",
-    desc: "Link your Freighter or Albedo Stellar wallet in one click. Non-custodial — we never hold your private keys.",
+    desc: "Link your Freighter or Albedo Stellar wallet in one click. Non-custodial â€” we never hold your private keys.",
   },
   {
     step: "02",
@@ -323,12 +323,12 @@ function HowItWorks() {
   );
 }
 
-// ── Use Cases ────────────────────────────────────────────────────────────────
+// â”€â”€ Use Cases â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const useCases = [
-  { emoji: "🎯", title: "Emergency fund", desc: "Auto-save 5% of every incoming transaction to a locked savings vault. Build your buffer passively." },
-  { emoji: "📈", title: "DCA investing", desc: "Invest a fixed USDC amount into your investment vault every time your balance crosses a threshold." },
-  { emoji: "💼", title: "Freelancer paycheck split", desc: "Split every client payment automatically — 20% savings, 30% taxes, 50% spending money." },
-  { emoji: "🛡️", title: "Spending limits", desc: "Set daily XLM limits so AutoPilot blocks automation rules from exceeding your budget." },
+  { emoji: "ðŸŽ¯", title: "Emergency fund", desc: "Auto-save 5% of every incoming transaction to a locked savings vault. Build your buffer passively." },
+  { emoji: "ðŸ“ˆ", title: "DCA investing", desc: "Invest a fixed USDC amount into your investment vault every time your balance crosses a threshold." },
+  { emoji: "ðŸ’¼", title: "Freelancer paycheck split", desc: "Split every client payment automatically â€” 20% savings, 30% taxes, 50% spending money." },
+  { emoji: "ðŸ›¡ï¸", title: "Spending limits", desc: "Set daily XLM limits so AutoPilot blocks automation rules from exceeding your budget." },
 ];
 
 function UseCases() {
@@ -362,16 +362,16 @@ function UseCases() {
             {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 text-amber-400 fill-amber-400" />)}
           </div>
           <p className="text-white text-lg font-medium max-w-2xl mx-auto leading-relaxed">
-            &ldquo;AutoPilot is crazy — I was able to understand the app within a minute and my rules just work in the background.&rdquo;
+            &ldquo;AutoPilot is crazy â€” I was able to understand the app within a minute and my rules just work in the background.&rdquo;
           </p>
-          <p className="text-white/40 text-sm mt-3">— Pritam Mondal, Beta Tester</p>
+          <p className="text-white/40 text-sm mt-3">â€” Pritam Mondal, Beta Tester</p>
         </motion.div>
       </div>
     </section>
   );
 }
 
-// ── CTA Banner ────────────────────────────────────────────────────────────────
+// â”€â”€ CTA Banner â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function CTABanner() {
   return (
     <section className="py-24">
@@ -414,7 +414,7 @@ function CTABanner() {
   );
 }
 
-// ── Contact ──────────────────────────────────────────────────────────────────
+// â”€â”€ Contact â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Contact() {
   return (
     <section id="contact" className="py-24 border-t border-white/[0.05] relative overflow-hidden">
@@ -454,7 +454,7 @@ function Contact() {
   );
 }
 
-// ── Footer ────────────────────────────────────────────────────────────────────
+// â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function Footer() {
   return (
     <footer className="border-t border-white/[0.05] py-10">
@@ -479,14 +479,14 @@ function Footer() {
         </div>
 
         <p className="text-xs text-white/20">
-          Built on Stellar Testnet · © 2026 AutoPilot
+          Built on Stellar Testnet Â· Â© 2026 AutoPilot
         </p>
       </div>
     </footer>
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+// â”€â”€ Page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export default function LandingPage() {
   return (
     <div className="min-h-screen bg-black text-white">
