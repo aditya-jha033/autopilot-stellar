@@ -19,15 +19,11 @@
   </p>
 </div>
 
-<div align="center">
-  <h3><strong><a href="https://autopilot-stellar-mauve.vercel.app/">🚀 Live Deployment (Vercel)</a></strong> | <strong><a href="https://autopilot-stellar-mauve.vercel.app/docs"> 📖 Documentation</a></strong> | <strong><a href="https://youtu.be/OG6kS41sLGg"> ▶️ Demo Video</a></strong></h3>
-</div>
-
----
-
-## Pitch Deck : 
-* **PPT Link :** [ AutoPilot Pitch (Google Slides)](https://docs.google.com/presentation/d/1OmH3nWHDW-EPhB5rFAMBsHIfaRvFJd6EqIkvJ9CbAWE/edit?usp=sharing) 
-
+## 🔗 Important Links
+- **Live Preprod Demo:** [https://autopilot-stellar-mauve.vercel.app/](https://autopilot-stellar-mauve.vercel.app/) *(Live AutoPilot Application)*
+- **Documentation:** [https://autopilot-stellar-docs.vercel.app/](https://autopilot-stellar-docs.vercel.app/) *(Official AutoPilot Documentation)*
+- **Demo Video:** [Watch the AutoPilot MVP Demo](https://youtu.be/OG6kS41sLGg)
+- **PPT Link :** [ AutoPilot Pitch PPT(Google Slides)](https://docs.google.com/presentation/d/1OmH3nWHDW-EPhB5rFAMBsHIfaRvFJd6EqIkvJ9CbAWE/edit?usp=sharing) 
 ---
 
 ## 💡 The Problem & Solution
