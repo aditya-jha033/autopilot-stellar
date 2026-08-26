@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -38,9 +39,10 @@ function StepCard({ n, title, desc }: { n: number; title: string; desc: string }
 
 export default function UsagePage() {
   return (
+    <DocsLayout>
     <div className="max-w-3xl mx-auto px-5 py-12">
       <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8">
-        <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
+        <Link href="/" className="hover:text-white/60 transition-colors">Docs</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-white/60">Usage Guide</span>
       </nav>
@@ -108,7 +110,7 @@ export default function UsagePage() {
         <div className="mt-4 p-6 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
           <p className="text-sm text-white/50 mb-4">Learn how the AI processes your rules under the hood.</p>
           <Link
-            href="/docs/automation"
+            href="/automation"
             className="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             Explore AI Automation <ArrowRight className="w-4 h-4" />
@@ -116,5 +118,6 @@ export default function UsagePage() {
         </div>
       </motion.div>
     </div>
+    </DocsLayout>
   );
 }

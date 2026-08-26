@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -109,9 +110,10 @@ const ROUTES = [
 
 export default function ApiPage() {
   return (
+    <DocsLayout>
     <div className="max-w-3xl mx-auto px-5 py-12">
       <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8">
-        <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
+        <Link href="/" className="hover:text-white/60 transition-colors">Docs</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-white/60">API Reference</span>
       </nav>
@@ -203,5 +205,6 @@ const { user } = await fetch("/api/auth/verify", {
 // Returns: { id, userId, trigger, action, amount, isPercentage, memo, createdAt }`}</CodeBlock>
       </motion.div>
     </div>
+    </DocsLayout>
   );
 }

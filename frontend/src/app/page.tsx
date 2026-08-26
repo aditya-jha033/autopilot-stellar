@@ -38,7 +38,7 @@ function Navbar() {
     { label: "Features",    href: "#features" },
     { label: "How it works", href: "#how" },
     { label: "Use cases",   href: "#usecases" },
-    { label: "Docs",        href: "/docs" },
+    { label: "Docs",        href: "https://autopilot-docs.vercel.app" },
     { label: "Contact",     href: "#contact" },
   ];
 

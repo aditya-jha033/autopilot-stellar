@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -62,10 +63,11 @@ export default function SetupPage() {
   ];
 
   return (
+    <DocsLayout>
     <div className="max-w-3xl mx-auto px-5 py-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8">
-        <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
+        <Link href="/" className="hover:text-white/60 transition-colors">Docs</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-white/60">Quick Setup</span>
       </nav>
@@ -182,7 +184,7 @@ npm run dev`}</CodeBlock>
             and let the AI set up your first automated savings rule.
           </p>
           <Link
-            href="/docs/usage"
+            href="/usage"
             className="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             Continue to Usage Guide <ArrowRight className="w-4 h-4" />
@@ -190,5 +192,6 @@ npm run dev`}</CodeBlock>
         </div>
       </motion.div>
     </div>
+    </DocsLayout>
   );
 }

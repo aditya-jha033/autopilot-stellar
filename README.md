@@ -20,7 +20,7 @@
 </div>
 
 <div align="center">
-  <h3><strong><a href="https://autopilot-stellar-mauve.vercel.app/">🚀 Live Deployment (Vercel)</a></strong> | <strong><a href="https://autopilot-stellar-mauve.vercel.app/docs"> 📖 Documentation</a></strong> | <strong><a href="https://youtu.be/OG6kS41sLGg"> ▶️ Demo Video</a></strong></h3>
+  <h3><strong><a href="https://autopilot-stellar-mauve.vercel.app/">🚀 Live Deployment (Vercel)</a></strong> | <strong><a href="https://autopilot-docs.vercel.app"> 📖 Documentation</a></strong> | <strong><a href="https://youtu.be/OG6kS41sLGg"> ▶️ Demo Video</a></strong></h3>
 </div>
 
 ---

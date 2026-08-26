@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -110,6 +111,7 @@ const STATS = [
 
 export default function DocsPage() {
   return (
+    <DocsLayout>
     <div className="max-w-5xl mx-auto px-5 py-12">
       {/* Hero */}
       <motion.div
@@ -139,13 +141,13 @@ export default function DocsPage() {
 
         <motion.div variants={fadeUp} className="flex flex-wrap gap-3">
           <Link
-            href="/docs/setup"
+            href="/setup"
             className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all hover:shadow-lg hover:shadow-indigo-500/20"
           >
             Get Started <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="/docs/features"
+            href="/features"
             className="inline-flex items-center gap-2 bg-white/[0.06] hover:bg-white/[0.10] border border-white/[0.08] text-white/70 hover:text-white text-sm font-medium px-5 py-2.5 rounded-xl transition-all"
           >
             Explore Features
@@ -241,9 +243,10 @@ export default function DocsPage() {
         </p>
         <div className="flex items-center gap-4">
           <a href="https://github.com/aditya-jha033/autopilot-stellar" target="_blank" rel="noopener noreferrer" className="text-xs text-white/30 hover:text-white/60 transition-colors">GitHub</a>
-          <Link href="/onboarding" className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">Launch App</Link>
+          <Link href="https://autopilot-stellar-mauve.vercel.app/onboarding" className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors">Launch App</Link>
         </div>
       </div>
     </div>
+    </DocsLayout>
   );
 }

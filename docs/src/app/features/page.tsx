@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -137,9 +138,10 @@ const FEATURES = [
 
 export default function FeaturesPage() {
   return (
+    <DocsLayout>
     <div className="max-w-4xl mx-auto px-5 py-12">
       <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8">
-        <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
+        <Link href="/" className="hover:text-white/60 transition-colors">Docs</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-white/60">Features</span>
       </nav>
@@ -202,7 +204,7 @@ export default function FeaturesPage() {
             Ready to see how these features work together in practice?
           </p>
           <Link
-            href="/docs/usage"
+            href="/usage"
             className="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             Read the Usage Guide <ArrowRight className="w-4 h-4" />
@@ -210,5 +212,6 @@ export default function FeaturesPage() {
         </div>
       </motion.div>
     </div>
+    </DocsLayout>
   );
 }

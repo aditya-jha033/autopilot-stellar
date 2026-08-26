@@ -1,5 +1,6 @@
-/* eslint-disable */
 "use client";
+
+import DocsLayout from "@/components/DocsLayout";
 
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -58,9 +59,10 @@ const FLOW = [
 
 export default function AutomationPage() {
   return (
+    <DocsLayout>
     <div className="max-w-3xl mx-auto px-5 py-12">
       <nav className="flex items-center gap-1.5 text-xs text-white/30 mb-8">
-        <Link href="/docs" className="hover:text-white/60 transition-colors">Docs</Link>
+        <Link href="/" className="hover:text-white/60 transition-colors">Docs</Link>
         <ChevronRight className="w-3 h-3" />
         <span className="text-white/60">AI Automation</span>
       </nav>
@@ -178,7 +180,7 @@ await executeRuleTransaction(vaultPublicKey, execAmountStr, memo);`}</CodeBlock>
         <div className="mt-10 p-6 rounded-2xl border border-white/[0.08] bg-white/[0.02]">
           <p className="text-sm text-white/50 mb-4">See the full system architecture including the stream engine.</p>
           <Link
-            href="/docs/architecture"
+            href="/architecture"
             className="inline-flex items-center gap-2 text-sm font-medium text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             View Architecture <ArrowRight className="w-4 h-4" />
@@ -186,5 +188,6 @@ await executeRuleTransaction(vaultPublicKey, execAmountStr, memo);`}</CodeBlock>
         </div>
       </motion.div>
     </div>
+    </DocsLayout>
   );
 }

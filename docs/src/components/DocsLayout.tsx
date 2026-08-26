@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import { useState, useEffect } from "react";
@@ -25,25 +24,25 @@ const NAV = [
   {
     group: "Getting Started",
     items: [
-      { label: "Introduction", href: "/docs", icon: Home },
-      { label: "Quick Setup", href: "/docs/setup", icon: Settings },
+      { label: "Introduction", href: "/", icon: Home },
+      { label: "Quick Setup", href: "/setup", icon: Settings },
     ],
   },
   {
     group: "Product",
     items: [
-      { label: "Features", href: "/docs/features", icon: Zap },
-      { label: "Usage Guide", href: "/docs/usage", icon: BookOpen },
-      { label: "AI Automation", href: "/docs/automation", icon: Bot },
+      { label: "Features", href: "/features", icon: Zap },
+      { label: "Usage Guide", href: "/usage", icon: BookOpen },
+      { label: "AI Automation", href: "/automation", icon: Bot },
     ],
   },
   {
     group: "Technical",
     items: [
-      { label: "Architecture", href: "/docs/architecture", icon: Layers },
-      { label: "Smart Contracts", href: "/docs/contracts", icon: Code2 },
-      { label: "Security", href: "/docs/security", icon: Shield },
-      { label: "API Reference", href: "/docs/api", icon: Terminal },
+      { label: "Architecture", href: "/architecture", icon: Layers },
+      { label: "Smart Contracts", href: "/contracts", icon: Code2 },
+      { label: "Security", href: "/security", icon: Shield },
+      { label: "API Reference", href: "/api", icon: Terminal },
     ],
   },
 ];
@@ -59,7 +58,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  useEffect(() => { setSidebarOpen(false); }, [pathname]);
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
@@ -83,7 +84,9 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <div className="relative w-6 h-6">
               <Image src="/logo.png" alt="AutoPilot" fill sizes="24px" className="object-contain" />
             </div>
-            <span className="font-semibold text-white/90 text-sm group-hover:text-white transition-colors">AutoPilot</span>
+            <span className="font-semibold text-white/90 text-sm group-hover:text-white transition-colors">
+              AutoPilot
+            </span>
             <ChevronRight className="w-3.5 h-3.5 text-white/30" />
             <span className="text-sm text-white/40 font-medium">Docs</span>
           </Link>
@@ -99,12 +102,12 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             <Code2 className="w-3.5 h-3.5" />
             GitHub
           </a>
-          <Link
-            href="/onboarding"
+          <a
+            href="https://autopilot-stellar-mauve.vercel.app/onboarding"
             className="text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white px-3.5 py-1.5 rounded-lg transition-colors"
           >
             Launch App →
-          </Link>
+          </a>
         </div>
       </header>
 
@@ -151,10 +154,12 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
             ))}
 
             <div className="pt-2 border-t border-white/[0.06]">
-              <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/25">Links</p>
+              <p className="px-3 mb-1.5 text-[10px] font-semibold uppercase tracking-widest text-white/25">
+                Links
+              </p>
               <ul className="space-y-0.5">
                 {[
-                  { label: "Live Demo", href: "https://autopilot-stellar-mauve.vercel.app/" },
+                  { label: "Live App", href: "https://autopilot-stellar-mauve.vercel.app/" },
                   { label: "GitHub Repo", href: "https://github.com/aditya-jha033/autopilot-stellar" },
                   { label: "Demo Video", href: "https://youtu.be/OG6kS41sLGg" },
                 ].map(({ label, href }) => (
@@ -175,9 +180,7 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
           </nav>
         </aside>
 
-        <main className="flex-1 lg:ml-64 min-w-0">
-          {children}
-        </main>
+        <main className="flex-1 lg:ml-64 min-w-0">{children}</main>
       </div>
     </div>
   );
