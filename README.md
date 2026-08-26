@@ -25,6 +25,11 @@
 
 ---
 
+## Pitch Deck : 
+* **PPT Link :** [ AutoPilot Pitch (Google Slides)](https://docs.google.com/presentation/d/1OmH3nWHDW-EPhB5rFAMBsHIfaRvFJd6EqIkvJ9CbAWE/edit?usp=sharing) 
+
+---
+
 ## 💡 The Problem & Solution
 
 ### The Problem
