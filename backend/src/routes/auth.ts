@@ -1,34 +1,52 @@
 import { FastifyInstance } from "fastify";
-import { StrKey } from "@stellar/stellar-sdk";
+import { StrKey, Utils, Networks, Transaction, Keypair } from "@stellar/stellar-sdk";
 import { getDb } from "../lib/db";
 import { checkRateLimit } from "../lib/redis";
 
 export default async function authRoutes(server: FastifyInstance) {
+  const SERVER_SIGNING_KEY = process.env.AUTOPILOT_SECRET_KEY || Keypair.random().secret();
+  const SERVER_KP = Keypair.fromSecret(SERVER_SIGNING_KEY);
+  const NETWORK_PASSPHRASE = process.env.STELLAR_NETWORK === "mainnet" ? Networks.PUBLIC : Networks.TESTNET;
 
   /**
-   * POST /api/auth/login
+   * GET /api/auth/challenge
+   * Initiates SEP-10 Authentication flow.
+   * Accepts a Stellar account public key and returns a base64 encoded transaction challenge.
+   */
+  server.get("/challenge", async (request, reply) => {
+    const { account } = request.query as { account: string };
+
+    if (!account || !StrKey.isValidEd25519PublicKey(account)) {
+      return reply.status(400).send({ error: "Valid 'account' query parameter is required" });
+    }
+
+    try {
+      const challengeTx = Utils.buildChallengeTx(
+        SERVER_KP,
+        account,
+        "AutoPilot Stellar DEX Automation",
+        15 * 60, // 15 minutes timeout
+        NETWORK_PASSPHRASE
+      );
+      
+      return reply.send({ transaction: challengeTx });
+    } catch (err: any) {
+      request.log.error("Auth challenge error:", err);
+      return reply.status(500).send({ error: "Failed to build SEP-10 challenge" });
+    }
+  });
+
+  /**
+   * POST /api/auth/login (SEP-10 Verify)
    * 
-   * Accepts a Stellar public key from the Freighter wallet.
-   * The public key itself acts as the identity (no password).
-   * Optionally accepts a signed message for stronger verification
-   * (signature + message fields are optional for MVP).
-   * 
+   * Accepts a signed SEP-10 challenge transaction.
    * Issues a JWT stored in an HttpOnly cookie.
    */
   server.post("/login", async (request, reply) => {
-    const { publicKey, signature, message } = request.body as {
-      publicKey?: string;
-      signature?: string;
-      message?: string;
-    };
+    const { transaction } = request.body as { transaction: string };
 
-    if (!publicKey) {
-      return reply.status(400).send({ error: "publicKey is required" });
-    }
-
-    // Validate it's a real Stellar public key (G...)
-    if (!StrKey.isValidEd25519PublicKey(publicKey)) {
-      return reply.status(400).send({ error: "Invalid Stellar public key format" });
+    if (!transaction) {
+      return reply.status(400).send({ error: "transaction is required for SEP-10 login" });
     }
 
     // Rate limit: max 10 login attempts per IP per minute
@@ -38,25 +56,24 @@ export default async function authRoutes(server: FastifyInstance) {
       return reply.status(429).send({ error: "Too many login attempts. Please wait a minute." });
     }
 
-    // Optional: signature verification (enabled when both fields provided)
-    if (signature && message) {
-      try {
-        const { Keypair } = await import("@stellar/stellar-sdk");
-        const kp = Keypair.fromPublicKey(publicKey);
-        const sigBuffer = Buffer.from(signature, "base64");
-        const isValid = kp.verify(Buffer.from(message), sigBuffer);
-        if (!isValid) {
-          return reply.status(401).send({ error: "Invalid wallet signature" });
-        }
-      } catch {
-        return reply.status(400).send({ error: "Signature verification failed" });
-      }
-    }
-
     try {
+      // Verify the SEP-10 transaction envelope
+      const verified = Utils.verifyChallengeTxThreshold(
+        transaction,
+        SERVER_KP.publicKey(),
+        NETWORK_PASSPHRASE,
+        1, // Threshold required (1 for user's own key)
+        "AutoPilot Stellar DEX Automation"
+      );
+
+      // The verified object returns the set of signers who signed the transaction.
+      // We extract the user's public key (the client account).
+      const tx = new Transaction(transaction, NETWORK_PASSPHRASE);
+      const publicKey = tx.source;
+
       const sql = getDb();
 
-      // Upsert user — create if new, return existing if not
+      // Upsert user ?" create if new, return existing if not
       const users = await sql`
         INSERT INTO "User" (id, "publicKey", "createdAt", "updatedAt")
         VALUES (gen_random_uuid(), ${publicKey}, NOW(), NOW())
@@ -67,7 +84,7 @@ export default async function authRoutes(server: FastifyInstance) {
 
       const user = users[0];
 
-      // Issue JWT — stored in HttpOnly cookie (7 day expiry)
+      // Issue JWT ?" stored in HttpOnly cookie (7 day expiry)
       const token = server.jwt.sign(
         { id: user.id, publicKey: user.publicKey },
         { expiresIn: "7d" }
@@ -78,7 +95,7 @@ export default async function authRoutes(server: FastifyInstance) {
         path: "/",
         httpOnly: true,
         secure: isProd,
-        // cross-domain (Vercel frontend ↔ Render backend) requires sameSite "none" + secure
+        // cross-domain (Vercel frontend + Render backend) requires sameSite "none" + secure
         sameSite: isProd ? "none" : "strict",
         maxAge: 60 * 60 * 24 * 7,
       });
@@ -86,7 +103,7 @@ export default async function authRoutes(server: FastifyInstance) {
       return reply.send({ success: true, user: { id: user.id, publicKey: user.publicKey } });
     } catch (err: any) {
       request.log.error("Auth login error:", err);
-      return reply.status(500).send({ error: "Internal server error during login", details: err.message });
+      return reply.status(401).send({ error: "Invalid SEP-10 challenge signature", details: err.message });
     }
   });
 
@@ -108,14 +125,14 @@ export default async function authRoutes(server: FastifyInstance) {
 
   /**
    * GET /api/auth/me
-   * Returns the currently logged-in user from the JWT cookie.
+   * Returns current user info if logged in (requires JWT).
    */
   server.get("/me", async (request, reply) => {
     try {
       await request.jwtVerify();
       return reply.send({ user: request.user });
-    } catch {
-      return reply.status(401).send({ error: "Not authenticated" });
+    } catch (err) {
+      return reply.status(401).send({ error: "Unauthorized" });
     }
   });
 }

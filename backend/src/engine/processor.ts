@@ -148,10 +148,29 @@ export async function processPaymentDirect(data: PaymentJobData): Promise<any> {
     }
 
     const memo = (rule.memo as string | null) ?? `AutoPilot:${action}`.slice(0, 28);
-    console.log(`[Processor] 🚀 Sending ${execAmountStr} XLM → ${destination.slice(0, 8)}… (${action})`);
+    console.log(`[Processor] 🚀 Sending ${execAmountStr} XLM -> ${destination.slice(0, 8)}... (${action})`);
 
     try {
-      const txHash = await executeRuleTransaction(destination, execAmountStr, memo);
+      let txHash: string;
+
+      // Handle Soroban Keeper Logic (Phase 4 Upgrade)
+      if (action.includes("soroban")) {
+        const { invokeSorobanRuleExecution } = require("../stellar/soroban");
+        txHash = await invokeSorobanRuleExecution(rule.id, execAmountStr);
+      } 
+      // Handle SWAP logic for DCA (Phase 2 Upgrade)
+      else if (action.includes("swap") || action.includes("dca")) {
+        // Mock USDC on testnet for demonstration
+        const USDC_CODE = "USDC";
+        const USDC_ISSUER = "GBBD47IF6LWK7P7MDEVSCWT73SQGQMTVHFU53E2B6HGFV7NTVZND3M3D"; 
+        
+        // Use the newly imported executeDcaSwap
+        const { executeDcaSwap } = require("../stellar/dex");
+        txHash = await executeDcaSwap(destination, execAmountStr, USDC_CODE, USDC_ISSUER);
+      } else {
+        // Standard XLM transfer
+        txHash = await executeRuleTransaction(destination, execAmountStr, memo);
+      }
 
       await sql`
         INSERT INTO "AutomatedTransaction"
