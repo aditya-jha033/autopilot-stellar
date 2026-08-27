@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="frontend/public/logo.png" alt="AutoPilot Logo" width="150" />
+  <img src="frontend/public/logo.png" alt="AutoPilot Log✨ width="150" />
   <h1>AutoPilot</h1>
   <p>AI-Powered Financial Automation on the Stellar Network</p>
 
@@ -44,7 +44,7 @@ Imagine a freelancer who gets paid sporadically in XLM or USDC on Stellar. Inste
 
 ---
 
-## 📝 User Feedback & Survey
+## 📊 User Feedback & Survey
 
 As part of our continuous improvement, we collected feedback from early beta testers. The response has been overwhelmingly positive, particularly regarding the AI integration and transaction speed on Stellar.
 
@@ -194,12 +194,13 @@ As part of our continuous improvement, we collected feedback from early beta tes
 AutoPilot utilizes the Stellar Network's native features to create a seamless, non-custodial-feeling automation experience. 
 
 **Note on Smart Contracts:** 
-This project leverages Stellar's highly efficient native operations (Account Creation, Payment, Trustlines) orchestrated by a centralized off-chain engine, rather than Soroban smart contracts. This allows for complex AI integration and gas-less user experiences.
+AutoPilot leverages a 4-contract modular Soroban architecture on the Stellar network. The core `AutopilotProtocol` handles on-chain vault management, rule storage, and Keeper execution, while the backend utilizes Stellar's native DEX (`pathPaymentStrictSend`) for DCA and SEP-10 for wallet authentication.
 
-* **The Engine Account:** The backend maintains a funded "Engine" account (`AUTOPILOT_PUBLIC_KEY`). This account acts as the orchestrator.
-* **Vault Creation:** When a user creates a "Savings Vault" in the UI, the backend generates a *brand new* Stellar Keypair. The Engine account submits a `createAccount` transaction to the network, funding the new Vault with the base reserve (2.5 XLM). 
-* **Security:** The Vault's private key is encrypted using `AES-256-GCM` before being stored in the PostgreSQL database. The application only decrypts it in memory when an automated transaction needs to be signed.
-* **Transaction Execution:** A background cron job monitors the user's main public key via the Horizon API. When a trigger condition is met, the backend signs and submits a transaction moving funds to the respective Vault.
+* **Soroban Smart Vaults:** When a user creates a "Savings Vault" in the UI, they aren't just creating a new Stellar Keypair. They are interacting with the `AutopilotProtocol` smart contract to deploy a decentralized, on-chain Vault secured directly by their wallet's Ed25519 cryptographic signature.
+* **On-Chain Automation Rules:** AI-generated rules are stored immutably on the Stellar blockchain via Soroban.
+* **Keeper Execution Engine :** The backend monitors the user's main public key via the Horizon API. When an incoming payment triggers a rule, the backend acts as a **Keeper**. It does not move the funds directly; instead, it invokes the `execute_rule` function on the Soroban smart contract. The contract enforces limits and processes the rule securely.
+* **DCA & Stellar DEX :** For rules involving asset swapping (e.g., converting XLM to USDC), AutoPilot directly utilizes Stellar's native DEX via the `pathPaymentStrictSend` operation to guarantee the best market execution rates.
+* **SEP-10 Wallet Authentication:** Users authenticate natively via their Stellar wallets (e.g., Freighter) using the official SEP-10 Challenge-Response standard, ensuring true non-custodial identity management.
 
 ---
 
@@ -288,8 +289,8 @@ For hackathon judges and auditors, you can verify our deployment on the Stellar 
 
 | Component | Identifier / Hash | Verification Link |
 | :--- | :--- | :--- |
-| **Soroban Smart Contract ID (AutoPilot Vault)** | `CACYX7GWKABSUFUF5MV5UVRH62F6A2D2SUSAHVC4FTIIKARTIBVUW6BP` | [View on Stellar Lab](https://lab.stellar.org/r/testnet/contract/CACYX7GWKABSUFUF5MV5UVRH62F6A2D2SUSAHVC4FTIIKARTIBVUW6BP) |
-| **Contract Deployment Transaction Hash** | `d3ad5ecb5401e3270c2fba9af35e04c2efd85f567bc6de87b362b2bbc4d06973` | [View Tx on Stellar Expert](https://stellar.expert/explorer/testnet/tx/d3ad5ecb5401e3270c2fba9af35e04c2efd85f567bc6de87b362b2bbc4d06973) |
+| **Soroban Smart Contract ID (AutoPilot Protocol)** | `CAYEKPHSHVIS5X2WXI5ACBBLSGCFRORNCQKVUBXTH5SGQTVSBNPFA3QR` | [View on Stellar Lab](https://lab.stellar.org/r/testnet/contract/CAYEKPHSHVIS5X2WXI5ACBBLSGCFRORNCQKVUBXTH5SGQTVSBNPFA3QR) |
+| **Contract Deployment Transaction Hash (Secured)** | `c08cb46875272342d17a707379dcf33535be26db0ec2c29cc0520935b0bc75fb` | [View Tx on Stellar Expert](https://stellar.expert/explorer/testnet/tx/c08cb46875272342d17a707379dcf33535be26db0ec2c29cc0520935b0bc75fb) |
 | **Engine Account (Off-chain Orchestrator)** | `GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ` | [View on Stellar Expert](https://stellar.expert/explorer/testnet/account/GBUQJORY2GBXU2Z3HUJJJEYO5SQCKCVM5YWTHIKNV7URUAPTOPFKKHLQ) |
 
 ---
