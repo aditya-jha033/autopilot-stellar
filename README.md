@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="frontend/public/logo.png" alt="AutoPilot Log✨ width="150" />
+    <img src="frontend/public/logo.png" alt="AutoPilot Logo" width="250" height="auto" />
   <h1>AutoPilot</h1>
   <p>AI-Powered Financial Automation on the Stellar Network</p>
 
