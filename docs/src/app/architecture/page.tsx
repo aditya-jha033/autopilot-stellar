@@ -41,6 +41,20 @@ const STACK = [
     ],
   },
   {
+    layer: "Smart Contracts (Soroban)",
+    icon: Cpu,
+    color: "text-amber-400",
+    bg: "bg-amber-500/10 border-amber-500/20",
+    items: [
+      { name: "Rust", desc: "Memory-safe systems programming language" },
+      { name: "AutopilotProtocol", desc: "Registry & vault creation (SEP-56 structure)" },
+      { name: "AutomationRules", desc: "On-chain execution limits & storage" },
+      { name: "Blend Vault Integration", desc: "Yield aggregation across DeFi pools" },
+      { name: "SEP-41 Token Standard", desc: "Receipt tokens issued for yield vaults" },
+      { name: "Stellar DEX", desc: "Native DCA swapping via pathPaymentStrictSend" },
+    ],
+  },
+  {
     layer: "Data & Infrastructure",
     icon: Database,
     color: "text-emerald-400",

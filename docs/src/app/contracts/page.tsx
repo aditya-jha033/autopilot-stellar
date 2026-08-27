@@ -46,15 +46,47 @@ export default function ContractsPage() {
           </div>
         </div>
         <p className="text-white/50 leading-relaxed mb-10">
-          AutoPilot includes a Soroban smart contract written in Rust for the Stellar blockchain.
-          The contract provides on-chain vault management capabilities that complement the off-chain automation engine.
+          AutoPilot is built on a modular Soroban smart contract architecture written in Rust.
+          The core protocol acts as an on-chain Registry, Vault Manager, and Rules Engine.
         </p>
       </motion.div>
 
-      <motion.div initial="hidden" animate="visible" custom={1} variants={fadeUp}>
-        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+      <motion.div initial="hidden" animate="visible" custom={1} variants={fadeUp} className="prose prose-invert prose-emerald max-w-none">
+        <h2>Deployed Contract</h2>
+        <p className="text-white/60 text-sm">
+          The <code>AutopilotProtocol</code> contract is deployed on the Stellar Testnet:
+          <br/>
+          <strong className="text-white">Contract ID: </strong>
+          <code>CAYEKPHSHVIS5X2WXI5ACBBLSGCFRORNCQKVUBXTH5SGQTVSBNPFA3QR</code>
+        </p>
+
+        <h2>Core Functions</h2>
+        <p>The contract exposes several key capabilities directly on-chain:</p>
+        <ul>
+          <li><strong>Vault Creation:</strong> Users create on-chain vaults to hold funds securely.</li>
+          <li><strong>Rule Storage:</strong> AI-generated rules are stored immutably on-chain.</li>
+          <li><strong>Keeper Execution:</strong> The backend acts as a keeper, invoking <code>execute_rule</code> on-chain where limits and authorizations are enforced.</li>
+        </ul>
+
+        <h2>Keeper Execution Flow (Phase 4)</h2>
+        <p>
+          Instead of the backend sending payments directly, AutoPilot uses the backend as a <strong>Keeper</strong>. 
+          When an off-chain event occurs (e.g. salary received), the keeper invokes the Soroban contract.
+        </p>
+        <CodeBlock lang="typescript">
+{`// backend/src/stellar/soroban.ts
+const invokeOp = contract.call("execute_rule", ruleId, paymentAmount);
+
+const tx = new TransactionBuilder(engineAccount, { fee: "1000", networkPassphrase: Networks.TESTNET })
+  .addOperation(invokeOp)
+  .build();`}
+        </CodeBlock>
+      </motion.div>
+
+      <motion.div initial="hidden" animate="visible" custom={2} variants={fadeUp}>
+        <h2 className="text-lg font-semibold text-white mb-4 flex items-center gap-2 mt-8">
           <span className="w-1 h-5 rounded-full bg-yellow-500 inline-block" />
-          Contract Overview
+          Technical Specs
         </h2>
         <div className="grid sm:grid-cols-2 gap-3 mb-6">
           {[
