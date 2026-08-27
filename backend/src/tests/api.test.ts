@@ -69,14 +69,14 @@ describe("AutoPilot Backend E2E API Tests", () => {
     expect(JSON.parse(response.payload).error).toMatch(/Invalid vault type/);
   });
 
-  it("Test 4: Login requires a public key", async () => {
+  it("Test 4: Login requires a transaction challenge", async () => {
     const response = await server.inject({
       method: "POST",
       url: "/api/auth/login",
-      payload: {}
+      payload: {}, // No transaction provided
     });
-    
+
     expect(response.statusCode).toBe(400);
-    expect(JSON.parse(response.payload).error).toBe("publicKey is required");
+    expect(JSON.parse(response.payload).error).toBe("transaction is required for SEP-10 login");
   });
 });
