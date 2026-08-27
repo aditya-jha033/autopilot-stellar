@@ -16,6 +16,7 @@ import {
   Check,
   Sun,
   Moon,
+  BarChart,
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,6 +27,7 @@ const navItems = [
   { href: "/rules",     icon: ListChecks,      label: "Rules" },
   { href: "/goals",     icon: Target,          label: "Goals" },
   { href: "/vault",     icon: Vault,           label: "Vault" },
+  { href: "/analytics", icon: BarChart,        label: "Analytics" },
   { href: "/account",   icon: User,            label: "Account" },
 ];
 
